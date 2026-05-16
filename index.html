@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tenbit's Admin — Portugal 2026 🇵🇹</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 :root {
@@ -372,6 +373,10 @@ nav {
         <div class="loading-step" style="animation-delay:12s"><span class="dot-ind"></span>Finalizing your itinerary…</div>
       </div>
     </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px;">
+      <button id="pdfBtn" onclick="downloadPDF()" style="display:none;background:var(--gold);color:var(--navy);border:none;padding:11px 28px;border-radius:100px;font-size:0.85rem;font-weight:700;font-family:Outfit,sans-serif;cursor:pointer;box-shadow:0 3px 14px rgba(201,150,58,0.4);">⬇️ Download as PDF</button>
+      <a id="shareBtn" href="itinerary.html" target="_blank" style="display:none;background:var(--navy);color:white;border:none;padding:11px 28px;border-radius:100px;font-size:0.85rem;font-weight:700;font-family:Outfit,sans-serif;cursor:pointer;text-decoration:none;">🔗 Open Family View</a>
+    </div>
     <div id="itinOutput"></div>
     <div id="errorBox" class="error-box"></div>
   </div>
@@ -572,7 +577,7 @@ async function generateItinerary(){
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
         model:'claude-sonnet-4-6',
-        max_tokens:4000,
+        max_tokens:8000,
         messages:[{role:'user', content:prompt}]
       })
     });
@@ -582,10 +587,14 @@ async function generateItinerary(){
   };
 
   try {
-    const lisbonDays = Math.min(6, parseInt(days) - 3);
-    const algarveDays = parseInt(days) - lisbonDays;
+    const totalDays = parseInt(days);
+    // Always 6 Lisbon days if trip is 9+, fewer only if trip is very short
+    const lisbonDays = totalDays >= 9 ? 6 : Math.max(3, totalDays - 3);
+    const algarveStart = lisbonDays + 1;
+    const algarveBeachStart = lisbonDays + 2;
+    const algarveBeachEnd = totalDays - 1;
 
-    const prompt1 = `You are an expert Portugal travel planner AI. A family of 5 from San Francisco, California is planning their Portugal vacation in Summer 2026.
+    const prompt1 = `You are an expert Portugal travel planner AI. A family of 5 from San Francisco is planning their Portugal vacation in Summer 2026.
 
 FAMILY:
 - Tenbit (Dad) — experienced traveler, loves food, wine, culture, scenic views
@@ -597,24 +606,26 @@ FAMILY:
 EVERYONE'S WISHES:${wishText}
 PACE: ${pace} | ACCOMMODATION: ${hotel} | TOURING: ${tours}
 
-PART 1 — Write 3-4 sentences explaining WHY Lisbon and the Algarve are perfect for this specific family. Reference their actual wishes. Make it personal.
+PART 1 — Write 3-4 sentences explaining WHY Lisbon and the Algarve are perfect for this specific family. Reference their actual wishes. Make it personal and smart.
 
-PART 2 — Write ONLY Days 1 through ${lisbonDays}, all Lisbon area.
-- Include Sintra day trip for Leah's Pena Palace photos
-- Include LX Factory for Leah
-- Include a Fado evening for Tenbit & Abby
-- Include basketball courts or skate spots for the boys
-- End Day ${lisbonDays} with: "Tomorrow: we drive south to the Algarve!"
+PART 2 — You MUST write ALL of Days 1 through ${lisbonDays} in full. Do not skip or summarize any day. All ${lisbonDays} days must be completely written out.
 
-FORMAT FOR EACH DAY:
-Day [N]: [catchy title]
-Morning: [details with real place names]
-Afternoon: [details with real place names]
-Evening: [dinner recommendation + ⚠ Nathanael: confirm allergen menu]
+Day 1: Arrive Lisbon — settle in, explore neighborhood, easy first evening
+Day 2: Lisbon city day — Belém, Pastéis de Belém, Jerónimos Monastery, LX Factory for Leah
+Day 3: Sintra day trip — Pena Palace (Leah's hero shot), Quinta da Regaleira, return to Lisbon
+Day 4: Lisbon neighborhoods — Alfama, miradouros viewpoints, basketball courts for the boys, Fado evening for Tenbit & Abby
+Day 5: Cascais coastal day — beach, seafood lunch, sunset
+Day ${lisbonDays}: Final Lisbon day — relaxed morning, last shopping, pack up. End with: "Tomorrow: we drive south to the Algarve! 🌊"
 
-Every 2 days add: 📸 Leah's Shot of the Day: [specific spot and why it's trending]`;
+For EACH of the ${lisbonDays} days use EXACTLY this format:
+Day [N]: [Short catchy title]
+Morning: [2-3 sentences with real place names and specific activities]
+Afternoon: [2-3 sentences with real place names and specific activities]
+Evening: [Dinner at a real named restaurant + ⚠ Nathanael: confirm allergen menu with staff before ordering]
 
-    const prompt2 = `You are an expert Portugal travel planner AI continuing a family itinerary. The Tenbit family just finished ${lisbonDays} days in Lisbon and is heading to the Algarve.
+Add this every 2 days: 📸 Leah's Shot of the Day: [specific iconic photo spot and exactly why it's viral on Instagram/TikTok]`;
+
+    const prompt2 = `You are an expert Portugal travel planner AI continuing a family itinerary. The Tenbit family just finished ${lisbonDays} days in Lisbon and is now driving to the Algarve.
 
 FAMILY:
 - Tenbit (Dad) — food, wine, scenic views
@@ -626,21 +637,21 @@ FAMILY:
 EVERYONE'S WISHES:${wishText}
 PACE: ${pace}
 
-Write ONLY Days ${lisbonDays+1} through ${days}. Do NOT repeat earlier days.
+CRITICAL: You MUST write ALL of Days ${algarveStart} through ${totalDays} in full. That is ${totalDays - lisbonDays} days. Do not skip, summarize, or stop early. Every single day must be fully written out.
 
-- Day ${lisbonDays+1}: Travel day — scenic drive Lisbon to Algarve (Lagos/Albufeira). Suggest one stop en route.
-- Days ${lisbonDays+2}–${parseInt(days)-1}: Full Algarve beach mode. Include: Benagil Cave boat tour, jet ski rental, snorkeling, Praia da Marinha for Leah, rooftop sunset bar, night market dining, beach sports for the boys.
-- Day ${days}: Easy morning, transfer to Faro Airport, fly home to SFO. End with a warm family send-off.
+Day ${algarveStart}: Travel day — scenic drive Lisbon to Lagos/Albufeira area (suggest one stop en route like Setúbal or Comporta beach)
+Days ${algarveBeachStart}–${algarveBeachEnd}: Full Algarve beach mode — spread these across the days: Benagil Cave boat tour, jet ski rental at Meia Praia, snorkeling at Ponta da Piedade, Praia da Marinha for Leah's content, rooftop sunset at a named bar, night market dining at Mercado de Lagos, beach volleyball and basketball for the boys, spa morning for Abby, wine dinner for Tenbit & Abby
+Day ${totalDays}: Easy morning at the beach, checkout, transfer to Faro Airport, fly SFO. End with a warm emotional send-off message to the whole family.
 
-FORMAT FOR EACH DAY:
-Day [N]: [catchy title]
-Morning: [details with real place names]
-Afternoon: [details with real place names]
-Evening: [dinner recommendation + ⚠ Nathanael: confirm allergen menu]
+For EACH day use EXACTLY this format:
+Day [N]: [Short catchy title]
+Morning: [2-3 sentences with real place names]
+Afternoon: [2-3 sentences with real place names]
+Evening: [Dinner at a real named restaurant + ⚠ Nathanael: confirm allergen menu with staff before ordering]
 
-Every 2-3 days add: 📸 Leah's Shot of the Day: [specific Algarve spot]
+Add this every 2 days: 📸 Leah's Shot of the Day: [specific Algarve spot and why it's blowing up on social media]
 
-After Day ${days}, write a "🇵🇹 Tips For Your Family" section with 6 practical tips: food allergy navigation in Portugal, safe teen-walkable areas, best SIM card from SFO, tipping culture, getting around, and one thing that will surprise the kids.`;
+After Day ${totalDays}, write "🇵🇹 Tips For Your Family" with exactly 6 tips: (1) navigating Nathanael's food allergy in Portugal, (2) safe teen-walkable areas in Lisbon and Algarve, (3) best SIM card option from SFO, (4) tipping culture in Portugal, (5) getting around — car vs Uber vs tuk-tuk, (6) one thing that will genuinely surprise the kids about Portugal.`;
 
     const [text1, text2] = await Promise.all([callAI(prompt1), callAI(prompt2)]);
     const fullText = text1 + '\n' + text2;
@@ -655,6 +666,28 @@ After Day ${days}, write a "🇵🇹 Tips For Your Family" section with 6 practi
     document.getElementById('loadingWrap').style.display = 'none';
     document.getElementById('itinOutput').innerHTML = cards || `<div class="day-text">${fullText.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>')}</div>`;
 
+    // Save itinerary to Supabase so family can view it on itinerary.html
+    try {
+      await fetch(`${SUPABASE_URL}/rest/v1/itinerary`, {
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json',
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'Prefer': 'resolution=merge-duplicates'
+        },
+        body: JSON.stringify({
+          id: 'current',
+          raw_text: fullText,
+          days: totalDays,
+          intro: intro,
+          generated_at: new Date().toISOString()
+        })
+      });
+      document.getElementById('shareBtn').style.display = 'inline-flex';
+      document.getElementById('pdfBtn').style.display = 'inline-flex';
+    } catch(e){ console.warn('Could not save itinerary for sharing', e); }
+
   } catch(err){
     document.getElementById('loadingWrap').style.display = 'none';
     document.getElementById('errorBox').innerHTML = `<strong>Something went wrong.</strong><br><small>${err.message}</small>`;
@@ -662,6 +695,51 @@ After Day ${days}, write a "🇵🇹 Tips For Your Family" section with 6 practi
   }
 
   document.getElementById('genBtn').disabled = false;
+}
+
+function downloadPDF(){
+  const el = document.getElementById('itinOutput');
+  if(!el || !el.innerHTML){ alert('Generate the itinerary first!'); return; }
+
+  // Open all day blocks for PDF
+  document.querySelectorAll('.day-content').forEach(d => d.classList.add('open'));
+  document.querySelectorAll('.day-header').forEach(h => h.classList.add('open'));
+
+  const opt = {
+    margin: [15, 15, 15, 15],
+    filename: 'Tenbit-Family-Portugal-2026.pdf',
+    image: { type:'jpeg', quality:0.98 },
+    html2canvas: { scale:2, useCORS:true },
+    jsPDF: { unit:'mm', format:'a4', orientation:'portrait' }
+  };
+
+  const wrapper = document.createElement('div');
+  wrapper.style.cssText = 'font-family:Georgia,serif;max-width:800px;margin:0 auto;padding:20px;';
+
+  const header = document.createElement('div');
+  header.style.cssText = 'text-align:center;margin-bottom:30px;padding-bottom:20px;border-bottom:3px solid #C9963A;';
+  header.innerHTML = `
+    <h1 style="font-size:2rem;color:#0A2240;margin-bottom:6px;">🇵🇹 Tenbit Family Portugal 2026</h1>
+    <p style="color:#6B7280;font-size:1rem;">SFO → Lisbon → Algarve → SFO · Summer 2026</p>
+    <p style="color:#C9963A;font-size:0.85rem;margin-top:8px;">✈ Tenbit · Abby · Lucas · Nathanael · Leah</p>`;
+
+  const recBox = document.getElementById('aiRecBox');
+  let recHtml = '';
+  if(recBox && recBox.style.display !== 'none'){
+    recHtml = `<div style="background:#EEF6FF;border:1px solid #C3DDF5;border-radius:8px;padding:16px 20px;margin-bottom:24px;">
+      <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#1A4F8A;margin-bottom:8px;">🤖 Why Portugal for Your Family</div>
+      <div style="font-size:0.9rem;line-height:1.7;color:#334155;">${document.getElementById('aiRecText').innerHTML}</div>
+    </div>`;
+  }
+
+  wrapper.appendChild(header);
+  wrapper.innerHTML += recHtml + el.outerHTML;
+
+  document.body.appendChild(wrapper);
+
+  html2pdf().set(opt).from(wrapper).save().then(() => {
+    document.body.removeChild(wrapper);
+  });
 }
 
 // Load on page open

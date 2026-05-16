@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tenbit Family Portugal 2026 — Our Itinerary 🇵🇹</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --navy:#0A2240; --blue:#1A4F8A; --gold:#C9963A; --gold-light:#E8B85A;
+  --cream:#FBF6EE; --sage:#6B9E78; --dark:#111827; --muted:#6B7280; --border:#E5DDD0;
+}
+body { font-family:'Outfit',sans-serif; background:var(--cream); color:var(--dark); min-height:100vh; }
+
+nav {
+  background:var(--navy); padding:14px 32px;
+  display:flex; justify-content:space-between; align-items:center;
+  position:sticky; top:0; z-index:200;
+  box-shadow:0 2px 24px rgba(10,34,64,0.5);
+}
+.nav-logo { font-family:'Cormorant Garamond',serif; color:var(--gold); font-size:1.3rem; font-weight:600; }
+.nav-logo span { color:white; font-style:italic; }
+.nav-badge { background:rgba(107,158,120,0.25); border:1px solid rgba(107,158,120,0.4); color:#B8E0A8; padding:5px 14px; border-radius:100px; font-size:0.72rem; font-weight:700; letter-spacing:1px; }
+
+.hero {
+  background:linear-gradient(150deg,#1a3a0a 0%,#2a5c12 55%,var(--sage) 100%);
+  padding:64px 32px 72px; text-align:center; position:relative; overflow:hidden;
+}
+.hero::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:repeating-linear-gradient(45deg,transparent,transparent 28px,rgba(255,255,255,0.02) 28px,rgba(255,255,255,0.02) 29px);
+}
+.hero-eyebrow {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2);
+  color:rgba(255,255,255,0.85); padding:5px 16px; border-radius:100px;
+  font-size:0.72rem; font-weight:600; letter-spacing:2px; text-transform:uppercase;
+  margin-bottom:22px; position:relative;
+}
+.hero h1 { font-family:'Cormorant Garamond',serif; font-size:clamp(2.2rem,4.5vw,3.6rem); color:white; font-weight:700; position:relative; margin-bottom:10px; line-height:1.1; }
+.hero h1 em { color:#B8E0A8; font-style:italic; }
+.hero-sub { color:rgba(255,255,255,0.72); font-size:0.95rem; position:relative; max-width:520px; margin:0 auto; }
+
+.itin-summary { background:white; border-bottom:1px solid #EDE8E0; padding:16px 40px; display:flex; gap:32px; flex-wrap:wrap; }
+.isum { display:flex; flex-direction:column; gap:2px; flex-shrink:0; }
+.isum .l { font-size:0.67rem; text-transform:uppercase; letter-spacing:1.5px; color:#AAA; font-weight:700; }
+.isum .v { font-size:0.92rem; font-weight:700; color:var(--navy); }
+
+.itin-body { max-width:880px; margin:0 auto; padding:48px 24px 90px; }
+
+.ai-rec-box { background:linear-gradient(135deg,#EEF6FF,#F0FFF4); border:1px solid #C3DDF5; border-radius:16px; padding:24px 28px; margin-bottom:28px; }
+.ai-rec-box .rec-label { font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:2px; color:var(--blue); margin-bottom:8px; display:flex; align-items:center; gap:6px; }
+.ai-rec-box p { font-size:0.92rem; line-height:1.85; color:#334155; }
+
+.day-block { background:white; border-radius:16px; border:1px solid var(--border); margin-bottom:16px; overflow:hidden; }
+.day-header { padding:18px 24px; display:flex; align-items:center; gap:14px; cursor:pointer; transition:background 0.15s; }
+.day-header:hover { background:#FAFAF8; }
+.day-num { width:44px; height:44px; border-radius:12px; background:var(--navy); color:var(--gold); font-family:'Cormorant Garamond',serif; font-size:1.1rem; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.day-meta { flex:1; }
+.day-title { font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-weight:700; color:var(--navy); line-height:1.3; }
+.day-tags { display:flex; gap:6px; flex-wrap:wrap; margin-top:6px; }
+.day-tag { font-size:0.68rem; padding:2px 9px; border-radius:100px; font-weight:600; }
+.tag-city   { background:#EEF2FF; color:#3730A3; }
+.tag-beach  { background:#E0F2FE; color:#0369A1; }
+.tag-food   { background:#FEF3C7; color:#92400E; }
+.tag-sport  { background:#F0FDF4; color:#15803D; }
+.tag-travel { background:#FDF2F8; color:#86198F; }
+.tag-photo  { background:#FFF1F2; color:#BE123C; }
+.day-chevron { color:#CCC; font-size:0.85rem; transition:transform 0.25s; flex-shrink:0; }
+.day-header.open .day-chevron { transform:rotate(180deg); }
+.day-content { max-height:0; overflow:hidden; transition:max-height 0.45s ease; }
+.day-content.open { max-height:2000px; }
+.day-content-inner { border-top:1px solid #F3EDE4; padding:20px 24px 24px; }
+.day-text { font-size:0.9rem; line-height:1.85; color:#374151; display:block; word-break:break-word; }
+.day-text strong { color:var(--navy); }
+.time-lbl { display:inline-block; background:var(--navy); color:var(--gold); font-size:0.68rem; font-weight:700; padding:3px 10px; border-radius:5px; letter-spacing:0.5px; margin:8px 0 4px; }
+.allergy-note { display:inline-flex; align-items:center; gap:4px; background:#FFF3E0; border:1px solid #FFCC80; color:#B45309; padding:2px 8px; border-radius:6px; font-size:0.72rem; font-weight:600; }
+
+.loading-wrap { display:flex; flex-direction:column; align-items:center; justify-content:center; padding:80px 40px; text-align:center; }
+.spinner { width:52px; height:52px; border:4px solid #EDE8E0; border-top-color:var(--blue); border-radius:50%; animation:spin 0.85s linear infinite; margin-bottom:24px; }
+@keyframes spin { to { transform:rotate(360deg); } }
+.loading-wrap h3 { font-family:'Cormorant Garamond',serif; font-size:1.5rem; color:var(--navy); margin-bottom:8px; }
+.loading-wrap p { color:var(--muted); font-size:0.88rem; max-width:380px; line-height:1.7; }
+
+.not-ready { background:white; border:2px solid var(--border); border-radius:18px; padding:48px; text-align:center; }
+.not-ready h3 { font-family:'Cormorant Garamond',serif; font-size:1.6rem; color:var(--navy); margin-bottom:10px; }
+.not-ready p { color:var(--muted); font-size:0.92rem; line-height:1.7; }
+
+.family-chips { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:20px; }
+.fchip { background:rgba(10,34,64,0.07); border:1px solid rgba(10,34,64,0.12); color:var(--navy); padding:7px 18px; border-radius:8px; font-size:0.82rem; font-weight:500; }
+
+@media(max-width:640px){
+  nav{padding:12px 16px;}
+  .hero{padding:44px 18px 52px;}
+  .itin-body{padding:32px 16px 60px;}
+  .itin-summary{padding:14px 18px;gap:18px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">✈ <span>Tenbit Family</span> Portugal 2026</div>
+  <div class="nav-badge">🇵🇹 Our Itinerary</div>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">🤖 Built By AI · Planned By Dad</div>
+  <h1>The Tenbit Family<br><em>Portugal Plan 2026</em></h1>
+  <p class="hero-sub">Here it is, family — your personalized Portugal trip, built around what each of you picked. 🇵🇹</p>
+</div>
+
+<div class="itin-summary" id="itinSummary">
+  <div class="isum"><span class="l">Route</span><span class="v">🇵🇹 SFO → Lisbon → Algarve → SFO</span></div>
+  <div class="isum"><span class="l">Travelers</span><span class="v">Tenbit · Abby · Lucas · Nathanael · Leah</span></div>
+  <div class="isum"><span class="l">Allergy Note</span><span class="v">⚠ Nathanael — flagged at every meal</span></div>
+</div>
+
+<div class="itin-body">
+
+  <div class="loading-wrap" id="loadingWrap">
+    <div class="spinner"></div>
+    <h3>Loading your itinerary…</h3>
+    <p>Fetching Dad's Portugal plan for the family.</p>
+  </div>
+
+  <div id="mainContent" style="display:none;">
+    <div class="ai-rec-box" id="aiRecBox" style="display:none;">
+      <div class="rec-label">🤖 Why Dad Picked Portugal for Us</div>
+      <p id="aiRecText"></p>
+    </div>
+    <div id="itinOutput"></div>
+  </div>
+
+  <div class="not-ready" id="notReady" style="display:none;">
+    <h3>🕐 Not Ready Yet</h3>
+    <p>Dad hasn't generated the itinerary yet. Check back soon — once he hits the button on his admin page, it'll appear right here for the whole family.</p>
+    <div class="family-chips">
+      <span class="fchip">👨 Tenbit</span>
+      <span class="fchip">👩 Abby</span>
+      <span class="fchip">🧑 Lucas</span>
+      <span class="fchip">🧑 Nathanael</span>
+      <span class="fchip">👧 Leah</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const SUPABASE_URL = 'https://hjfhhezebxlniuxstdzp.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhqZmhoZXplYnhsbml1eHN0ZHpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg5NjU1MjgsImV4cCI6MjA5NDU0MTUyOH0.CjgOaKbk2OLiNF3qJIVwiCL_c7KvaaVzATNlqIC9aK0';
+
+function getTags(txt){
+  const t=[];
+  if(/lisbon|alfama|belem|sintra|cascais|lx factory|bairro alto|chiado/i.test(txt)) t.push('<span class="day-tag tag-city">📍 Lisbon</span>');
+  if(/faro|algarve|lagos|albufeira|portimão|marinha|benagil|carvoeiro|sagres/i.test(txt)) t.push('<span class="day-tag tag-beach">📍 Algarve</span>');
+  if(/beach|surf|ocean|swim|snorkel|jet ski|kayak|cave|cliff/i.test(txt)) t.push('<span class="day-tag tag-beach">🏖 Beach & Water</span>');
+  if(/basketball|skate|sport|soccer|football|volleyball/i.test(txt)) t.push('<span class="day-tag tag-sport">🏀 Sports</span>');
+  if(/restaurant|food|dinner|lunch|café|cafe|pastel|seafood|eat/i.test(txt)) t.push('<span class="day-tag tag-food">🍽 Food</span>');
+  if(/instagram|photo|tiktok|influencer|aesthetic|shot of the day/i.test(txt)) t.push('<span class="day-tag tag-photo">📸 Photo Spots</span>');
+  if(/fly|depart|arrive|airport|transfer|drive south/i.test(txt)) t.push('<span class="day-tag tag-travel">✈ Travel</span>');
+  return t.slice(0,3).join('');
+}
+
+function fmtBody(raw){
+  return raw
+    .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+    .replace(/__(.*?)__/g,'<strong>$1</strong>')
+    .replace(/^[-•]\s+/gm,'• ')
+    .replace(/\b(Morning):/gi,'<br><span class="time-lbl">🌅 Morning</span><br>')
+    .replace(/\b(Afternoon):/gi,'<br><span class="time-lbl">☀️ Afternoon</span><br>')
+    .replace(/\b(Evening|Night):/gi,'<br><span class="time-lbl">🌙 Evening</span><br>')
+    .replace(/\b(Lunch):/gi,'<br><span class="time-lbl">🍽 Lunch</span><br>')
+    .replace(/\b(Dinner):/gi,'<br><span class="time-lbl">🍷 Dinner</span><br>')
+    .replace(/\b(Breakfast):/gi,'<br><span class="time-lbl">☕ Breakfast</span><br>')
+    .replace(/📸[^\n]*/g,'<br><span style="background:#FFF0F5;border:1px solid #FFB6C1;padding:4px 10px;border-radius:8px;font-size:0.82rem;color:#C0186A;display:inline-block;margin:6px 0;">$&</span><br>')
+    .replace(/⚠[^\n]*/g,'<span class="allergy-note">⚠ Confirm allergens for Nathanael</span>')
+    .replace(/\n{2,}/g,'<br><br>')
+    .replace(/\n/g,'<br>');
+}
+
+function buildCards(text){
+  let intro='', cards='';
+  const dayHeaderRx=/(?:^|\n)\s*(?:\*{0,2}#{0,3}\s*)?(?:Day|DAY)\s+(\d+)\s*[:\-–—*]?\s*\*{0,2}([^\n]*)/g;
+  const matches=[...text.matchAll(dayHeaderRx)];
+  if(matches.length===0){
+    const formatted=text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+    cards=`<div class="day-block"><div class="day-content open"><div class="day-content-inner"><div class="day-text">${formatted}</div></div></div></div>`;
+    return{intro,cards};
+  }
+  intro=text.slice(0,matches[0].index).trim().replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+  for(let i=0;i<matches.length;i++){
+    const m=matches[i];
+    const num=parseInt(m[1]);
+    const title=m[2].replace(/\*\*/g,'').replace(/#+/g,'').trim();
+    const start=m.index+m[0].length;
+    const end=i+1<matches.length?matches[i+1].index:text.length;
+    const body=text.slice(start,end).trim();
+    const tags=getTags(body+title);
+    const open=num<=2;
+    cards+=`
+    <div class="day-block">
+      <div class="day-header${open?' open':''}" onclick="toggleDay(this)">
+        <div class="day-num">${num}</div>
+        <div class="day-meta">
+          <div class="day-title">${num===1?'✈ ':''}Day ${num}${title?' — '+title:''}</div>
+          <div class="day-tags">${tags}</div>
+        </div>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-content${open?' open':''}">
+        <div class="day-content-inner">
+          <div class="day-text">${fmtBody(body)}</div>
+        </div>
+      </div>
+    </div>`;
+  }
+  return{intro,cards};
+}
+
+function toggleDay(hdr){
+  hdr.classList.toggle('open');
+  hdr.nextElementSibling.classList.toggle('open');
+}
+
+async function loadItinerary(){
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/itinerary?id=eq.current&select=*`, {
+      headers:{
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`
+      }
+    });
+    const data = await res.json();
+
+    document.getElementById('loadingWrap').style.display = 'none';
+
+    if(!data || data.length === 0 || !data[0].raw_text){
+      document.getElementById('notReady').style.display = 'block';
+      return;
+    }
+
+    const row = data[0];
+
+    // Update summary bar
+    if(row.days){
+      document.getElementById('itinSummary').innerHTML += `
+        <div class="isum"><span class="l">Duration</span><span class="v">${row.days} days</span></div>`;
+    }
+    if(row.generated_at){
+      const d = new Date(row.generated_at).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+      document.getElementById('itinSummary').innerHTML += `
+        <div class="isum"><span class="l">Generated</span><span class="v">${d}</span></div>`;
+    }
+
+    const {intro, cards} = buildCards(row.raw_text);
+
+    if(intro){
+      document.getElementById('aiRecText').innerHTML = intro;
+      document.getElementById('aiRecBox').style.display = 'block';
+    }
+
+    document.getElementById('itinOutput').innerHTML = cards || `<div class="day-text">${row.raw_text.replace(/\n/g,'<br>')}</div>`;
+    document.getElementById('mainContent').style.display = 'block';
+
+  } catch(err){
+    document.getElementById('loadingWrap').style.display = 'none';
+    document.getElementById('notReady').style.display = 'block';
+    console.error(err);
+  }
+}
+
+loadItinerary();
+</script>
+</body>
+</html>
