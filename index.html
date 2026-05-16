@@ -294,11 +294,11 @@ nav {
   <!-- TRIP SETTINGS -->
   <div class="section-label">Step 3</div>
   <div class="section-title">Trip Settings</div>
-  <p class="section-hint">Set the length and style of the trip.</p>
+  <p class="section-hint">Set the length, style, budget and transport for the trip.</p>
 
   <div class="trip-settings">
     <h3>🗓 Trip Preferences</h3>
-    <p class="hint">Choose your ideal trip setup before generating.</p>
+    <p class="hint">The AI will use all of these to tailor hotel recommendations and day-by-day transportation guidance.</p>
     <div class="settings-grid">
       <div class="sf">
         <label>Trip Length</label>
@@ -315,15 +315,34 @@ nav {
         <select id="tripPace">
           <option value="relaxed — chill days with a couple activities, lots of downtime">Relaxed</option>
           <option value="balanced — mix of activities and downtime, not rushed" selected>Balanced</option>
-          <option value="active — packed days, lots to do">Active & packed</option>
+          <option value="active — packed days, lots to do">Active &amp; packed</option>
         </select>
       </div>
       <div class="sf">
-        <label>Accommodation</label>
+        <label>Accommodation Style</label>
         <select id="hotelStyle">
-          <option value="resort-style hotels with pools in safe walkable areas where teens can freely explore" selected>Resort with pool & walkable area</option>
+          <option value="resort-style hotels with pools in safe walkable areas where teens can freely explore" selected>Resort with pool &amp; walkable area</option>
           <option value="boutique hotels in vibrant city-center locations">Boutique city-center hotels</option>
           <option value="mix of resort and city boutique hotels">Mix of both</option>
+        </select>
+      </div>
+      <div class="sf">
+        <label>Hotel Price Range</label>
+        <select id="hotelBudget">
+          <option value="budget — under $150 per night, clean and comfortable 3-star hotels">Budget (under $150/night)</option>
+          <option value="mid-range — $150 to $300 per night, good 4-star hotels with amenities" selected>Mid-range ($150–$300/night)</option>
+          <option value="upscale — $300 to $500 per night, premium 4 to 5-star hotels with pools and great service">Upscale ($300–$500/night)</option>
+          <option value="luxury — $500+ per night, top 5-star hotels and resorts, finest available">Luxury ($500+/night)</option>
+        </select>
+      </div>
+      <div class="sf">
+        <label>Getting Around</label>
+        <select id="transport">
+          <option value="Uber and Bolt app (easiest, no planning needed — recommend Uber/Bolt for all transfers and daily travel)">Uber / Bolt app only</option>
+          <option value="rental car for maximum flexibility — recommend renting a car at Lisbon airport and driving themselves, great for the Algarve" selected>Rental car (full flexibility)</option>
+          <option value="mix of Uber/Bolt for city days and rental car for the Lisbon-to-Algarve drive">Mix: Uber in city + rental car for Algarve</option>
+          <option value="private transfers and shuttles — pre-booked private drivers for airport, city days, and the Lisbon to Algarve transfer">Private transfers &amp; shuttles</option>
+          <option value="public transit — Lisbon metro, buses, and intercity trains where possible, with Uber as backup">Public transit (metro, bus, train)</option>
         </select>
       </div>
       <div class="sf">
@@ -534,6 +553,8 @@ async function generateItinerary(){
   const days = document.getElementById('tripLength').value;
   const pace = document.getElementById('tripPace').value;
   const hotel = document.getElementById('hotelStyle').value;
+  const hotelBudget = document.getElementById('hotelBudget').value;
+  const transport = document.getElementById('transport').value;
   const tours = document.getElementById('tourPref').value;
   const tenbit = collectTenbitWishes();
 
@@ -565,10 +586,14 @@ async function generateItinerary(){
   document.getElementById('genBtn').disabled = true;
   window.scrollTo({top: document.getElementById('itinSection').offsetTop - 20, behavior:'smooth'});
 
+  const budgetLabel = document.getElementById('hotelBudget').options[document.getElementById('hotelBudget').selectedIndex].text;
+  const transportLabel = document.getElementById('transport').options[document.getElementById('transport').selectedIndex].text;
   document.getElementById('itinSummary').innerHTML = `
     <div class="isum"><span class="l">AI Route</span><span class="v">✈ SFO → Lisbon → Faro → SFO</span></div>
     <div class="isum"><span class="l">Duration</span><span class="v">${days} days</span></div>
     <div class="isum"><span class="l">Travelers</span><span class="v">Tenbit, Abby, Lucas, Nathanael & Leah</span></div>
+    <div class="isum"><span class="l">Hotel Budget</span><span class="v">${budgetLabel}</span></div>
+    <div class="isum"><span class="l">Transport</span><span class="v">${transportLabel}</span></div>
     <div class="isum"><span class="l">Allergy</span><span class="v">⚠ Nathanael flagged at every meal</span></div>`;
 
   const callAI = async (prompt) => {
@@ -604,7 +629,11 @@ FAMILY:
 - Leah (15, daughter) — first time abroad. Instagram/TikTok, influencer spots, aesthetic cafés, beautiful beaches
 
 EVERYONE'S WISHES:${wishText}
-PACE: ${pace} | ACCOMMODATION: ${hotel} | TOURING: ${tours}
+PACE: ${pace} | ACCOMMODATION STYLE: ${hotel} | HOTEL BUDGET: ${hotelBudget} | TRANSPORTATION: ${transport} | TOURING: ${tours}
+
+HOTELS: For the Lisbon portion, recommend 1-2 specific real hotel names that match the accommodation style and budget above. Include the hotel name, neighborhood, and why it's ideal for a family of 5 with teens.
+
+TRANSPORTATION: Throughout the itinerary, include specific transport instructions for each day based on the transport preference above. For example: how to get from Lisbon airport to the hotel on Day 1, which transport to use between each activity, and estimated costs or travel times where helpful.
 
 PART 1 — Write 3-4 sentences explaining WHY Lisbon and the Algarve are perfect for this specific family. Reference their actual wishes. Make it personal and smart.
 
@@ -635,7 +664,11 @@ FAMILY:
 - Leah (15) — Instagram/TikTok, influencer spots, beautiful beaches, aesthetic content
 
 EVERYONE'S WISHES:${wishText}
-PACE: ${pace}
+PACE: ${pace} | HOTEL BUDGET: ${hotelBudget} | TRANSPORTATION: ${transport}
+
+HOTELS: For the Algarve portion, recommend 1-2 specific real hotel or resort names near Lagos or Albufeira that match the budget above. Include why they're great for a family with teens who want beach access and a pool.
+
+TRANSPORTATION: For the Lisbon-to-Algarve travel day and all Algarve days, include specific transport guidance based on the transport preference above. If rental car, mention parking tips. If Uber/private, mention pre-booking. Include how to get to Faro Airport on the final day.
 
 CRITICAL: You MUST write ALL of Days ${algarveStart} through ${totalDays} in full. That is ${totalDays - lisbonDays} days. Do not skip, summarize, or stop early. Every single day must be fully written out.
 
