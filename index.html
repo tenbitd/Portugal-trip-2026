@@ -602,7 +602,7 @@ async function generateItinerary(){
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
         model:'claude-sonnet-4-6',
-        max_tokens:5000,
+        max_tokens:6000,
         messages:[{role:'user', content:prompt}]
       })
     });
@@ -686,8 +686,7 @@ Add this every 2 days: 📸 Leah's Shot of the Day: [specific Algarve spot and w
 
 After Day ${totalDays}, write "🇵🇹 Tips For Your Family" with exactly 6 tips: (1) navigating Nathanael's food allergy in Portugal, (2) safe teen-walkable areas in Lisbon and Algarve, (3) best SIM card option from SFO, (4) tipping culture in Portugal, (5) getting around — car vs Uber vs tuk-tuk, (6) one thing that will genuinely surprise the kids about Portugal.`;
 
-    const text1 = await callAI(prompt1);
-    const text2 = await callAI(prompt2);
+    const [text1, text2] = await Promise.all([callAI(prompt1), callAI(prompt2)]);
     const fullText = text1 + '\n' + text2;
 
     const {intro, cards} = buildCards(fullText);
