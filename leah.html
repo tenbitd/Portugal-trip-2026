@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leah's Portugal Wishes 🇵🇹</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --navy:#0A2240; --blue:#1A4F8A; --gold:#C9963A; --gold-light:#E8B85A;
+  --cream:#FBF6EE; --dark:#111827; --muted:#6B7280; --border:#E5DDD0;
+  --leah:#B8620A; --leah-light:#E8B85A;
+}
+body { font-family:'Outfit',sans-serif; background:var(--cream); color:var(--dark); min-height:100vh; }
+
+nav {
+  background:var(--navy); padding:14px 32px;
+  display:flex; justify-content:space-between; align-items:center;
+  position:sticky; top:0; z-index:200;
+  box-shadow:0 2px 24px rgba(10,34,64,0.5);
+}
+.nav-logo { font-family:'Cormorant Garamond',serif; color:var(--gold); font-size:1.3rem; font-weight:600; }
+.nav-logo span { color:white; font-style:italic; }
+.nav-family { display:flex; gap:8px; }
+.nav-pill { padding:6px 16px; border-radius:100px; font-size:0.75rem; font-weight:600; letter-spacing:0.5px; text-decoration:none; border:1.5px solid rgba(255,255,255,0.15); color:rgba(255,255,255,0.5); transition:all 0.2s; }
+.nav-pill:hover { border-color:var(--gold); color:var(--gold); }
+.nav-pill.me { background:var(--leah); border-color:var(--leah); color:white; }
+
+.hero {
+  background:linear-gradient(150deg,#5a2e04 0%,#B8620A 55%,#E8B85A 100%);
+  padding:56px 32px 64px; text-align:center; position:relative; overflow:hidden;
+}
+.hero::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background-image:
+    radial-gradient(circle at 20% 50%,rgba(255,255,255,0.08) 0%,transparent 50%),
+    radial-gradient(circle at 80% 20%,rgba(255,255,255,0.06) 0%,transparent 40%),
+    repeating-linear-gradient(45deg,transparent,transparent 30px,rgba(255,255,255,0.015) 30px,rgba(255,255,255,0.015) 31px);
+}
+.hero-eyebrow {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.3);
+  color:white; padding:5px 16px; border-radius:100px;
+  font-size:0.72rem; font-weight:600; letter-spacing:2px; text-transform:uppercase;
+  margin-bottom:22px; position:relative;
+}
+.hero h1 { font-family:'Cormorant Garamond',serif; font-size:clamp(2.4rem,5vw,4rem); font-weight:700; color:white; line-height:1.1; margin-bottom:14px; position:relative; }
+.hero h1 em { color:white; font-style:italic; text-shadow:0 0 30px rgba(255,255,255,0.4); }
+.hero-sub { color:rgba(255,255,255,0.82); font-size:1rem; max-width:500px; margin:0 auto; line-height:1.75; position:relative; }
+
+.form-wrap { max-width:860px; margin:0 auto; padding:52px 24px 80px; }
+
+.cat-section { background:white; border-radius:18px; border:2px solid var(--border); padding:28px; margin-bottom:22px; transition:border-color 0.2s; }
+.cat-section:hover { border-color:#e8c880; }
+.cat-header { display:flex; align-items:center; gap:12px; margin-bottom:18px; }
+.cat-icon { font-size:1.4rem; }
+.cat-title { font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-weight:700; color:var(--navy); }
+.cat-hint { font-size:0.78rem; color:var(--muted); margin-top:2px; }
+.chips { display:flex; flex-wrap:wrap; gap:8px; }
+.chip { padding:7px 16px; border-radius:100px; font-size:0.8rem; font-weight:500; cursor:pointer; border:1.5px solid #DDD5C8; background:transparent; color:#555; transition:all 0.18s; user-select:none; font-family:'Outfit',sans-serif; }
+.chip:hover { border-color:var(--leah); color:var(--leah); background:rgba(184,98,10,0.05); }
+.chip.on { background:var(--leah); border-color:var(--leah); color:white; }
+
+.freetext-section { margin-top:20px; padding-top:18px; border-top:1px dashed #EDE8E0; }
+.freetext-section label { font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:1.8px; color:#B0A090; display:block; margin-bottom:8px; }
+.freetext-section input {
+  width:100%; padding:11px 15px; border:1.5px solid #DDD5C8; border-radius:10px;
+  font-family:'Outfit',sans-serif; font-size:0.88rem; color:var(--dark);
+  background:#FAFAF8; outline:none; transition:border-color 0.2s;
+}
+.freetext-section input:focus { border-color:var(--leah); background:white; }
+.freetext-section input::placeholder { color:#BBAC99; }
+
+.submit-bar { background:linear-gradient(135deg,#5a2e04,#B8620A); border-radius:20px; padding:40px; text-align:center; position:relative; overflow:hidden; }
+.submit-bar::before { content:''; position:absolute; inset:0; background:repeating-linear-gradient(45deg,transparent,transparent 20px,rgba(255,255,255,0.02) 20px,rgba(255,255,255,0.02) 21px); }
+.submit-bar h3 { font-family:'Cormorant Garamond',serif; font-size:1.5rem; color:white; margin-bottom:6px; position:relative; }
+.submit-bar p { color:rgba(255,255,255,0.6); font-size:0.88rem; margin-bottom:24px; position:relative; }
+.btn-submit { position:relative; background:white; color:var(--leah); border:none; padding:15px 48px; border-radius:100px; font-size:1rem; font-weight:700; font-family:'Outfit',sans-serif; cursor:pointer; transition:all 0.22s; box-shadow:0 4px 24px rgba(0,0,0,0.2); }
+.btn-submit:hover { background:#FFF8F0; transform:translateY(-2px); }
+.btn-submit:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
+
+.success-box { background:#FFF8F0; border:2px solid #B8620A; border-radius:16px; padding:32px; text-align:center; display:none; }
+.success-box h3 { font-family:'Cormorant Garamond',serif; font-size:1.6rem; color:#B8620A; margin-bottom:8px; }
+.success-box p { color:#8B4A08; font-size:0.92rem; }
+.error-box { background:#FFF5F5; border:1px solid #FECACA; border-radius:14px; padding:20px; color:#991B1B; text-align:center; font-size:0.88rem; display:none; margin-top:16px; }
+
+@media(max-width:640px){
+  nav{padding:12px 16px;}
+  .hero{padding:40px 18px 50px;}
+  .form-wrap{padding:32px 16px 60px;}
+  .nav-family{display:none;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">✈ <span>Tenbit Family</span> Portugal 2026</div>
+  <div class="nav-family">
+    <a href="abby.html" class="nav-pill">👩 Abby</a>
+    <a href="lucas.html" class="nav-pill">🧑 Lucas</a>
+    <a href="nathanael.html" class="nav-pill">🧑 Nathanael</a>
+    <a href="leah.html" class="nav-pill me">👧 Leah</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">📸 First Time Abroad — Summer 2026</div>
+  <h1>Leah's <em>Portugal Wishes</em></h1>
+  <p class="hero-sub">Leah! Portugal is literally one of the most aesthetic countries in the world — and it's practically made for content. Tell Dad every spot you want to hit. 📸✨</p>
+</div>
+
+<div class="form-wrap">
+
+  <div class="cat-section">
+    <div class="cat-header">
+      <div class="cat-icon">📸</div>
+      <div><div class="cat-title">Content & Photo Spots</div><div class="cat-hint">What's on your must-film list?</div></div>
+    </div>
+    <div class="chips">
+      <span class="chip" onclick="tog(this)">Pena Palace photo shoot (Sintra)</span>
+      <span class="chip" onclick="tog(this)">LX Factory Lisbon</span>
+      <span class="chip" onclick="tog(this)">Praia da Marinha beach</span>
+      <span class="chip" onclick="tog(this)">Ponte 25 de Abril viewpoint</span>
+      <span class="chip" onclick="tog(this)">Benagil Cave boat trip</span>
+      <span class="chip" onclick="tog(this)">Places influencers have posted</span>
+      <span class="chip" onclick="tog(this)">Colorful tiled streets of Lisbon</span>
+      <span class="chip" onclick="tog(this)">Sunset from a miradouro viewpoint</span>
+      <span class="chip" onclick="tog(this)">Alfama rooftop views</span>
+      <span class="chip" onclick="tog(this)">Golden hour beach shots</span>
+    </div>
+  </div>
+
+  <div class="cat-section">
+    <div class="cat-header">
+      <div class="cat-icon">☕</div>
+      <div><div class="cat-title">Aesthetic Cafés & Food</div><div class="cat-hint">The kind of places that look amazing on your feed</div></div>
+    </div>
+    <div class="chips">
+      <span class="chip" onclick="tog(this)">Aesthetic café with great lighting</span>
+      <span class="chip" onclick="tog(this)">Pastel de nata at a famous bakery</span>
+      <span class="chip" onclick="tog(this)">Trendy brunch spots</span>
+      <span class="chip" onclick="tog(this)">Colorful açaí or smoothie bowls</span>
+      <span class="chip" onclick="tog(this)">Outdoor terrace with a view</span>
+      <span class="chip" onclick="tog(this)">Night market food stalls</span>
+      <span class="chip" onclick="tog(this)">Local ice cream & desserts</span>
+    </div>
+  </div>
+
+  <div class="cat-section">
+    <div class="cat-header">
+      <div class="cat-icon">🏖</div>
+      <div><div class="cat-title">Beach & Water Vibes</div><div class="cat-hint">What do you want at the beach?</div></div>
+    </div>
+    <div class="chips">
+      <span class="chip" onclick="tog(this)">Crystal clear Algarve beaches</span>
+      <span class="chip" onclick="tog(this)">Sea caves & grottos</span>
+      <span class="chip" onclick="tog(this)">Beach day with good vibes</span>
+      <span class="chip" onclick="tog(this)">Swimming in the Atlantic</span>
+      <span class="chip" onclick="tog(this)">Boat tour along the cliffs</span>
+      <span class="chip" onclick="tog(this)">Scenic coastal walks</span>
+    </div>
+  </div>
+
+  <div class="cat-section">
+    <div class="cat-header">
+      <div class="cat-icon">🌆</div>
+      <div><div class="cat-title">Experiences & Vibes</div><div class="cat-hint">What else would make this trip iconic?</div></div>
+    </div>
+    <div class="chips">
+      <span class="chip" onclick="tog(this)">Shopping in cute local boutiques</span>
+      <span class="chip" onclick="tog(this)">Exploring the city on foot</span>
+      <span class="chip" onclick="tog(this)">Watching the sunset somewhere epic</span>
+      <span class="chip" onclick="tog(this)">Finding a hidden local gem</span>
+      <span class="chip" onclick="tog(this)">Riding the historic Lisbon trams</span>
+      <span class="chip" onclick="tog(this)">Day trip to fairy-tale Sintra</span>
+    </div>
+  </div>
+
+  <div class="cat-section">
+    <div class="freetext-section" style="margin-top:0;padding-top:0;border-top:none;">
+      <label>✏️ Anything else, Leah? Add your own wish!</label>
+      <input type="text" id="extra-Leah" placeholder="e.g. I want to find a cute picnic spot, go to a night market, film a reel at Pena Palace…" />
+    </div>
+  </div>
+
+  <div class="submit-bar">
+    <h3>Send your wishes to Dad ✨</h3>
+    <p>Dad is going to make sure Portugal is absolutely iconic for your feed. Hit submit!</p>
+    <button class="btn-submit" id="submitBtn" onclick="submitWishes()">📸 Send My Wishes to Dad</button>
+  </div>
+
+  <div class="success-box" id="successBox">
+    <h3>🎉 Wishes sent, Leah!</h3>
+    <p>Dad can see all your picks. Get ready — Portugal is going to be absolutely stunning content. 🇵🇹✨</p>
+  </div>
+  <div class="error-box" id="errorBox"></div>
+
+</div>
+
+<script>
+const SUPABASE_URL = 'https://hjfhhezebxlniuxstdzp.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhqZmhoZXplYnhsbml1eHN0ZHpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg5NjU1MjgsImV4cCI6MjA5NDU0MTUyOH0.CjgOaKbk2OLiNF3qJIVwiCL_c7KvaaVzATNlqIC9aK0';
+
+function tog(el){ el.classList.toggle('on'); }
+
+async function submitWishes(){
+  const chips = [...document.querySelectorAll('.chip.on')].map(c => c.textContent.trim());
+  const extra = document.getElementById('extra-Leah').value.trim();
+
+  if(chips.length === 0 && !extra){
+    document.getElementById('errorBox').textContent = 'Please select at least one wish before submitting!';
+    document.getElementById('errorBox').style.display = 'block';
+    return;
+  }
+
+  document.getElementById('submitBtn').disabled = true;
+  document.getElementById('submitBtn').textContent = 'Sending…';
+  document.getElementById('errorBox').style.display = 'none';
+
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/wishes`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'Prefer': 'resolution=merge-duplicates'
+      },
+      body: JSON.stringify({ person:'Leah', chips, extra, updated_at: new Date().toISOString() })
+    });
+
+    if(!res.ok){ const e = await res.text(); throw new Error(e); }
+
+    document.querySelector('.submit-bar').style.display = 'none';
+    document.getElementById('successBox').style.display = 'block';
+    window.scrollTo({top: document.body.scrollHeight, behavior:'smooth'});
+  } catch(err){
+    document.getElementById('errorBox').textContent = 'Something went wrong: ' + err.message;
+    document.getElementById('errorBox').style.display = 'block';
+    document.getElementById('submitBtn').disabled = false;
+    document.getElementById('submitBtn').textContent = '📸 Send My Wishes to Dad';
+  }
+}
+</script>
+</body>
+</html>

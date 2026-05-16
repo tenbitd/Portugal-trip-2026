@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tenbit's Admin — Portugal 2026 🇵🇹</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --navy:#0A2240; --blue:#1A4F8A; --gold:#C9963A; --gold-light:#E8B85A;
+  --terracotta:#C05A2A; --cream:#FBF6EE; --sage:#6B9E78;
+  --dark:#111827; --muted:#6B7280; --border:#E5DDD0;
+}
+body { font-family:'Outfit',sans-serif; background:var(--cream); color:var(--dark); min-height:100vh; }
+
+nav {
+  background:var(--navy); padding:14px 32px;
+  display:flex; justify-content:space-between; align-items:center;
+  position:sticky; top:0; z-index:200;
+  box-shadow:0 2px 24px rgba(10,34,64,0.5);
+}
+.nav-logo { font-family:'Cormorant Garamond',serif; color:var(--gold); font-size:1.3rem; font-weight:600; }
+.nav-logo span { color:white; font-style:italic; }
+.nav-badge { background:rgba(201,150,58,0.2); border:1px solid rgba(201,150,58,0.4); color:var(--gold-light); padding:5px 14px; border-radius:100px; font-size:0.72rem; font-weight:700; letter-spacing:1px; }
+
+.hero {
+  background:linear-gradient(150deg,var(--navy) 0%,#0d3060 55%,#143d6b 100%);
+  padding:56px 32px 64px; text-align:center; position:relative; overflow:hidden;
+}
+.hero::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background-image:
+    radial-gradient(circle at 20% 50%,rgba(201,150,58,0.08) 0%,transparent 50%),
+    radial-gradient(circle at 80% 20%,rgba(201,150,58,0.06) 0%,transparent 40%),
+    repeating-linear-gradient(45deg,transparent,transparent 30px,rgba(255,255,255,0.015) 30px,rgba(255,255,255,0.015) 31px);
+}
+.hero-eyebrow {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(201,150,58,0.12); border:1px solid rgba(201,150,58,0.3);
+  color:var(--gold-light); padding:5px 16px; border-radius:100px;
+  font-size:0.72rem; font-weight:600; letter-spacing:2px; text-transform:uppercase;
+  margin-bottom:22px; position:relative;
+}
+.hero h1 { font-family:'Cormorant Garamond',serif; font-size:clamp(2.2rem,4.5vw,3.8rem); font-weight:700; color:white; line-height:1.1; margin-bottom:14px; position:relative; }
+.hero h1 em { color:var(--gold); font-style:italic; }
+.hero-sub { color:rgba(255,255,255,0.65); font-size:1rem; max-width:520px; margin:0 auto; line-height:1.75; position:relative; }
+
+.admin-wrap { max-width:1000px; margin:0 auto; padding:48px 24px 90px; }
+
+/* STATUS CARDS */
+.section-label { font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:2.5px; color:var(--terracotta); margin-bottom:16px; }
+.section-title { font-family:'Cormorant Garamond',serif; font-size:1.8rem; font-weight:700; color:var(--navy); margin-bottom:6px; }
+.section-hint { color:var(--muted); font-size:0.88rem; margin-bottom:28px; }
+
+.status-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:16px; margin-bottom:44px; }
+.status-card { background:white; border-radius:16px; border:2px solid var(--border); padding:20px; transition:all 0.2s; }
+.status-card.submitted { border-color:#6B9E78; background:#F0FFF4; }
+.status-card.waiting { border-color:#E5DDD0; }
+.sc-top { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+.sc-avatar { width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.4rem; flex-shrink:0; }
+.av-abby   { background:linear-gradient(135deg,#8B1A5C,#C0358E); }
+.av-lucas  { background:linear-gradient(135deg,#1A5C2A,#2E8B57); }
+.av-nate   { background:linear-gradient(135deg,#5C1A5A,#8B2E86); }
+.av-leah   { background:linear-gradient(135deg,#C9963A,#E8B85A); }
+.sc-name { font-family:'Cormorant Garamond',serif; font-size:1.15rem; font-weight:700; color:var(--navy); }
+.sc-role { font-size:0.72rem; color:var(--muted); }
+.sc-status { display:flex; align-items:center; gap:6px; font-size:0.78rem; font-weight:600; }
+.sc-status.done { color:#15803D; }
+.sc-status.pending { color:#B45309; }
+.sc-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.sc-dot.done { background:#6B9E78; }
+.sc-dot.pending { background:#E8B85A; animation:pulse 1.5s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.sc-chips { display:flex; flex-wrap:wrap; gap:5px; margin-top:10px; }
+.sc-chip { background:#F0F4FF; border:1px solid #C8D8F0; color:#1A4F8A; padding:3px 9px; border-radius:100px; font-size:0.68rem; font-weight:500; }
+.sc-extra { margin-top:8px; font-size:0.75rem; color:var(--muted); font-style:italic; }
+.sc-time { font-size:0.68rem; color:#AAA; margin-top:8px; }
+.sc-link { display:inline-block; margin-top:10px; font-size:0.75rem; color:var(--blue); text-decoration:none; font-weight:600; }
+.sc-link:hover { text-decoration:underline; }
+
+.refresh-btn { display:inline-flex; align-items:center; gap:8px; background:white; border:2px solid var(--border); color:var(--navy); padding:9px 20px; border-radius:100px; font-size:0.8rem; font-weight:600; font-family:'Outfit',sans-serif; cursor:pointer; margin-bottom:36px; transition:all 0.2s; }
+.refresh-btn:hover { border-color:var(--navy); background:var(--navy); color:white; }
+
+/* TENBIT'S OWN WISHES */
+.tenbit-section { background:white; border-radius:18px; border:2px solid var(--border); padding:28px; margin-bottom:36px; }
+.tenbit-section h3 { font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:700; color:var(--navy); margin-bottom:6px; }
+.tenbit-section .hint { color:var(--muted); font-size:0.85rem; margin-bottom:20px; }
+.chips { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+.chip { padding:7px 16px; border-radius:100px; font-size:0.8rem; font-weight:500; cursor:pointer; border:1.5px solid #DDD5C8; background:transparent; color:#555; transition:all 0.18s; user-select:none; font-family:'Outfit',sans-serif; }
+.chip:hover { border-color:var(--blue); color:var(--blue); background:rgba(26,79,138,0.05); }
+.chip.on { background:var(--navy); border-color:var(--navy); color:white; }
+.cat-label { font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:1.8px; color:#B0A090; margin-bottom:8px; margin-top:16px; }
+.freetext-section label { font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:1.8px; color:#B0A090; display:block; margin-bottom:8px; margin-top:16px; }
+.freetext-section input {
+  width:100%; padding:10px 14px; border:1.5px solid #DDD5C8; border-radius:10px;
+  font-family:'Outfit',sans-serif; font-size:0.85rem; color:var(--dark);
+  background:#FAFAF8; outline:none; transition:border-color 0.2s;
+}
+.freetext-section input:focus { border-color:var(--blue); background:white; }
+.freetext-section input::placeholder { color:#BBAC99; }
+
+/* TRIP SETTINGS */
+.trip-settings { background:white; border-radius:18px; padding:28px; border:2px solid var(--border); margin-bottom:36px; }
+.trip-settings h3 { font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:700; color:var(--navy); margin-bottom:6px; }
+.trip-settings .hint { color:var(--muted); font-size:0.85rem; margin-bottom:20px; }
+.settings-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:16px; }
+.sf { display:flex; flex-direction:column; gap:7px; }
+.sf label { font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--muted); }
+.sf select { padding:11px 14px; border:1.5px solid #DDD5C8; border-radius:10px; font-family:'Outfit',sans-serif; font-size:0.88rem; color:var(--dark); background:white; outline:none; transition:border-color 0.2s; -webkit-appearance:none; }
+.sf select:focus { border-color:var(--blue); }
+
+/* GENERATE */
+.generate-bar { background:linear-gradient(135deg,var(--navy),#0d3060); border-radius:20px; padding:44px 40px; text-align:center; position:relative; overflow:hidden; }
+.generate-bar::before { content:''; position:absolute; inset:0; background:repeating-linear-gradient(45deg,transparent,transparent 20px,rgba(255,255,255,0.02) 20px,rgba(255,255,255,0.02) 21px); }
+.generate-bar h3 { font-family:'Cormorant Garamond',serif; font-size:1.6rem; color:white; margin-bottom:6px; position:relative; }
+.generate-bar p { color:rgba(255,255,255,0.6); font-size:0.88rem; margin-bottom:26px; position:relative; }
+.btn-gen { position:relative; background:var(--gold); color:var(--navy); border:none; padding:16px 52px; border-radius:100px; font-size:1rem; font-weight:700; font-family:'Outfit',sans-serif; cursor:pointer; transition:all 0.22s; box-shadow:0 4px 24px rgba(201,150,58,0.45); }
+.btn-gen:hover { background:var(--gold-light); transform:translateY(-2px); }
+.btn-gen:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
+.waiting-note { color:rgba(255,255,255,0.5); font-size:0.8rem; margin-top:14px; position:relative; }
+
+/* ITINERARY OUTPUT */
+.itin-section { margin-top:48px; }
+.itin-hero-bar { background:linear-gradient(150deg,#1a3a0a 0%,#2a5c12 50%,var(--sage) 100%); border-radius:20px; padding:40px; text-align:center; margin-bottom:28px; }
+.itin-hero-bar h2 { font-family:'Cormorant Garamond',serif; font-size:2rem; color:white; font-weight:700; margin-bottom:8px; }
+.itin-hero-bar h2 em { color:#B8E0A8; font-style:italic; }
+.itin-hero-bar p { color:rgba(255,255,255,0.72); font-size:0.92rem; }
+
+.itin-summary { background:white; border:1px solid #EDE8E0; border-radius:14px; padding:18px 24px; display:flex; gap:28px; flex-wrap:wrap; margin-bottom:28px; }
+.isum { display:flex; flex-direction:column; gap:2px; flex-shrink:0; }
+.isum .l { font-size:0.67rem; text-transform:uppercase; letter-spacing:1.5px; color:#AAA; font-weight:700; }
+.isum .v { font-size:0.95rem; font-weight:700; color:var(--navy); }
+
+.loading-wrap { display:flex; flex-direction:column; align-items:center; justify-content:center; padding:70px 40px; text-align:center; }
+.spinner { width:52px; height:52px; border:4px solid #EDE8E0; border-top-color:var(--blue); border-radius:50%; animation:spin 0.85s linear infinite; margin-bottom:24px; }
+@keyframes spin { to { transform:rotate(360deg); } }
+.loading-wrap h3 { font-family:'Cormorant Garamond',serif; font-size:1.5rem; color:var(--navy); margin-bottom:8px; }
+.loading-wrap p { color:var(--muted); font-size:0.88rem; max-width:380px; line-height:1.7; }
+.loading-steps { margin-top:20px; display:flex; flex-direction:column; gap:10px; text-align:left; }
+.loading-step { font-size:0.82rem; color:var(--muted); display:flex; align-items:center; gap:10px; opacity:0; animation:fadeUp 0.5s ease forwards; }
+.dot-ind { width:8px; height:8px; border-radius:50%; background:#DDD; flex-shrink:0; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+
+.ai-rec-box { background:linear-gradient(135deg,#EEF6FF,#F0FFF4); border:1px solid #C3DDF5; border-radius:16px; padding:24px 28px; margin-bottom:24px; }
+.ai-rec-box .rec-label { font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:2px; color:var(--blue); margin-bottom:8px; display:flex; align-items:center; gap:6px; }
+.ai-rec-box p { font-size:0.92rem; line-height:1.85; color:#334155; }
+
+.day-block { background:white; border-radius:16px; border:1px solid var(--border); margin-bottom:16px; overflow:hidden; }
+.day-header { padding:18px 24px; display:flex; align-items:center; gap:14px; cursor:pointer; transition:background 0.15s; }
+.day-header:hover { background:#FAFAF8; }
+.day-num { width:44px; height:44px; border-radius:12px; background:var(--navy); color:var(--gold); font-family:'Cormorant Garamond',serif; font-size:1.1rem; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.day-meta { flex:1; }
+.day-title { font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-weight:700; color:var(--navy); line-height:1.3; }
+.day-tags { display:flex; gap:6px; flex-wrap:wrap; margin-top:6px; }
+.day-tag { font-size:0.68rem; padding:2px 9px; border-radius:100px; font-weight:600; }
+.tag-city   { background:#EEF2FF; color:#3730A3; }
+.tag-beach  { background:#E0F2FE; color:#0369A1; }
+.tag-food   { background:#FEF3C7; color:#92400E; }
+.tag-sport  { background:#F0FDF4; color:#15803D; }
+.tag-travel { background:#FDF2F8; color:#86198F; }
+.tag-photo  { background:#FFF1F2; color:#BE123C; }
+.day-chevron { color:#CCC; font-size:0.85rem; transition:transform 0.25s; flex-shrink:0; }
+.day-header.open .day-chevron { transform:rotate(180deg); }
+.day-content { max-height:0; overflow:hidden; transition:max-height 0.45s ease; }
+.day-content.open { max-height:2000px; }
+.day-content-inner { border-top:1px solid #F3EDE4; padding:20px 24px 24px; }
+.day-text { font-size:0.9rem; line-height:1.85; color:#374151; display:block; word-break:break-word; }
+.day-text strong { color:var(--navy); }
+.time-lbl { display:inline-block; background:var(--navy); color:var(--gold); font-size:0.68rem; font-weight:700; padding:3px 10px; border-radius:5px; letter-spacing:0.5px; margin:8px 0 4px; }
+.allergy-note { display:inline-flex; align-items:center; gap:4px; background:#FFF3E0; border:1px solid #FFCC80; color:#B45309; padding:2px 8px; border-radius:6px; font-size:0.72rem; font-weight:600; }
+.error-box { background:#FFF5F5; border:1px solid #FECACA; border-radius:14px; padding:24px; color:#991B1B; text-align:center; font-size:0.9rem; line-height:1.7; display:none; }
+
+@media(max-width:640px){
+  nav{padding:12px 16px;}
+  .hero{padding:40px 18px 50px;}
+  .admin-wrap{padding:32px 16px 60px;}
+  .generate-bar{padding:32px 20px;}
+  .status-grid{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">✈ <span>Tenbit Family</span> Portugal 2026</div>
+  <div class="nav-badge">👨 Dad's Admin</div>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">🔐 Admin View · Tenbit Only</div>
+  <h1>Trip <em>Command Center</em></h1>
+  <p class="hero-sub">Here's the family's status. Once everyone has submitted their wishes, set your trip preferences and hit the button to build the itinerary.</p>
+</div>
+
+<div class="admin-wrap">
+
+  <!-- FAMILY STATUS -->
+  <div class="section-label">Step 1</div>
+  <div class="section-title">Family Wish Status</div>
+  <p class="section-hint">Each family member submits their own page. Green = done. Once all 4 are in, you're ready to generate.</p>
+
+  <button class="refresh-btn" onclick="loadWishes()">🔄 Refresh Status</button>
+
+  <div class="status-grid" id="statusGrid">
+    <div class="status-card waiting">
+      <div class="sc-top">
+        <div class="sc-avatar av-abby">👩</div>
+        <div><div class="sc-name">Abby</div><div class="sc-role">Mom</div></div>
+      </div>
+      <div class="sc-status pending"><span class="sc-dot pending"></span>Waiting…</div>
+      <a href="abby.html" class="sc-link" target="_blank">→ Open Abby's page</a>
+    </div>
+    <div class="status-card waiting">
+      <div class="sc-top">
+        <div class="sc-avatar av-lucas">🧑</div>
+        <div><div class="sc-name">Lucas</div><div class="sc-role">19 · Son</div></div>
+      </div>
+      <div class="sc-status pending"><span class="sc-dot pending"></span>Waiting…</div>
+      <a href="lucas.html" class="sc-link" target="_blank">→ Open Lucas's page</a>
+    </div>
+    <div class="status-card waiting">
+      <div class="sc-top">
+        <div class="sc-avatar av-nate">🧑</div>
+        <div><div class="sc-name">Nathanael</div><div class="sc-role">17 · Son ⚠ Allergy</div></div>
+      </div>
+      <div class="sc-status pending"><span class="sc-dot pending"></span>Waiting…</div>
+      <a href="nathanael.html" class="sc-link" target="_blank">→ Open Nathanael's page</a>
+    </div>
+    <div class="status-card waiting">
+      <div class="sc-top">
+        <div class="sc-avatar av-leah">👧</div>
+        <div><div class="sc-name">Leah</div><div class="sc-role">15 · Daughter</div></div>
+      </div>
+      <div class="sc-status pending"><span class="sc-dot pending"></span>Waiting…</div>
+      <a href="leah.html" class="sc-link" target="_blank">→ Open Leah's page</a>
+    </div>
+  </div>
+
+  <!-- TENBIT'S OWN WISHES -->
+  <div class="section-label">Step 2</div>
+  <div class="section-title">Your Own Wishes, Tenbit</div>
+  <p class="section-hint">Pick what you want out of this trip too.</p>
+
+  <div class="tenbit-section">
+    <h3>👨 Tenbit's Picks</h3>
+    <p class="hint">Select everything that excites you about Portugal.</p>
+
+    <div class="cat-label">🍽 Food & Dining</div>
+    <div class="chips">
+      <span class="chip" onclick="tog(this)">Authentic Portuguese cuisine</span>
+      <span class="chip" onclick="tog(this)">Fresh seafood restaurants</span>
+      <span class="chip" onclick="tog(this)">Rooftop terrace dining</span>
+      <span class="chip" onclick="tog(this)">Local wine tasting</span>
+      <span class="chip" onclick="tog(this)">Grilled fish & piri piri</span>
+      <span class="chip" onclick="tog(this)">Fine dining experience</span>
+      <span class="chip" onclick="tog(this)">Hidden local gems</span>
+      <span class="chip" onclick="tog(this)">Food & craft beer spots</span>
+    </div>
+
+    <div class="cat-label">🌍 Culture & City</div>
+    <div class="chips">
+      <span class="chip" onclick="tog(this)">Vibrant local neighborhoods</span>
+      <span class="chip" onclick="tog(this)">Fado music evening</span>
+      <span class="chip" onclick="tog(this)">Scenic city viewpoints</span>
+      <span class="chip" onclick="tog(this)">Sunset cocktails with a view</span>
+      <span class="chip" onclick="tog(this)">Exploring coastal villages</span>
+      <span class="chip" onclick="tog(this)">Light city touring</span>
+      <span class="chip" onclick="tog(this)">Day trip to nearby towns</span>
+    </div>
+
+    <div class="cat-label">🏖 Beach & Relax</div>
+    <div class="chips">
+      <span class="chip" onclick="tog(this)">Beach days with the family</span>
+      <span class="chip" onclick="tog(this)">Resort pool & lounge time</span>
+      <span class="chip" onclick="tog(this)">Boat tour along the coast</span>
+      <span class="chip" onclick="tog(this)">Relaxed mornings & coffee</span>
+    </div>
+
+    <div class="cat-label">🛍 Shopping</div>
+    <div class="chips">
+      <span class="chip" onclick="tog(this)">Artisan ceramics & tiles</span>
+      <span class="chip" onclick="tog(this)">Quality leather goods</span>
+      <span class="chip" onclick="tog(this)">Local markets & antiques</span>
+    </div>
+
+    <div class="freetext-section">
+      <label>✏️ Anything else you want on this trip?</label>
+      <input type="text" id="extra-Tenbit" placeholder="e.g. A Champions League match, a cigar bar, a cooking class…" />
+    </div>
+  </div>
+
+  <!-- TRIP SETTINGS -->
+  <div class="section-label">Step 3</div>
+  <div class="section-title">Trip Settings</div>
+  <p class="section-hint">Set the length and style of the trip.</p>
+
+  <div class="trip-settings">
+    <h3>🗓 Trip Preferences</h3>
+    <p class="hint">Choose your ideal trip setup before generating.</p>
+    <div class="settings-grid">
+      <div class="sf">
+        <label>Trip Length</label>
+        <select id="tripLength">
+          <option value="9">9 days</option>
+          <option value="10">10 days</option>
+          <option value="11">11 days</option>
+          <option value="12" selected>12 days</option>
+          <option value="13">13 days</option>
+        </select>
+      </div>
+      <div class="sf">
+        <label>Pace Style</label>
+        <select id="tripPace">
+          <option value="relaxed — chill days with a couple activities, lots of downtime">Relaxed</option>
+          <option value="balanced — mix of activities and downtime, not rushed" selected>Balanced</option>
+          <option value="active — packed days, lots to do">Active & packed</option>
+        </select>
+      </div>
+      <div class="sf">
+        <label>Accommodation</label>
+        <select id="hotelStyle">
+          <option value="resort-style hotels with pools in safe walkable areas where teens can freely explore" selected>Resort with pool & walkable area</option>
+          <option value="boutique hotels in vibrant city-center locations">Boutique city-center hotels</option>
+          <option value="mix of resort and city boutique hotels">Mix of both</option>
+        </select>
+      </div>
+      <div class="sf">
+        <label>Touring</label>
+        <select id="tourPref">
+          <option value="minimal — only 2-3 light optional tours, mostly self-guided" selected>Minimal (2–3 light tours)</option>
+          <option value="moderate — a guided activity every few days">Moderate</option>
+          <option value="no organized tours — fully self-guided">No tours at all</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- GENERATE -->
+  <div class="section-label">Step 4</div>
+  <div class="section-title">Build the Itinerary</div>
+  <p class="section-hint" style="margin-bottom:24px;">AI will read everyone's wishes and build a full day-by-day Portugal itinerary for your family.</p>
+
+  <div class="generate-bar">
+    <h3>Ready to build the Portugal plan? 🇵🇹</h3>
+    <p>The AI will combine everyone's wishes — including yours — and craft a personalized itinerary.</p>
+    <button class="btn-gen" id="genBtn" onclick="generateItinerary()">✨ Build Our Portugal Itinerary</button>
+    <div class="waiting-note" id="waitingNote" style="display:none;">⚠ Some family members haven't submitted yet — the AI will still build from whoever has responded.</div>
+  </div>
+
+  <!-- OUTPUT -->
+  <div class="itin-section" id="itinSection" style="display:none;">
+    <div class="itin-hero-bar">
+      <h2>The Tenbit Family<br><em>Portugal Plan 2026</em></h2>
+      <p id="itinSubtitle">Your personalized itinerary, built around everyone's wishes.</p>
+    </div>
+    <div class="itin-summary" id="itinSummary"></div>
+    <div class="ai-rec-box" id="aiRecBox" style="display:none;">
+      <div class="rec-label">🤖 AI City Recommendation</div>
+      <p id="aiRecText"></p>
+    </div>
+    <div class="loading-wrap" id="loadingWrap" style="display:none;">
+      <div class="spinner"></div>
+      <h3>Hang tight…</h3>
+      <p>AI is reading everyone's picks and crafting a trip where Leah gets her photos, the boys get their water sports, Mom gets her cafés, and you get your seafood. 😄</p>
+      <div class="loading-steps">
+        <div class="loading-step" style="animation-delay:0.4s"><span class="dot-ind"></span>Reading everyone's preferences…</div>
+        <div class="loading-step" style="animation-delay:1.5s"><span class="dot-ind"></span>Selecting the best cities for your family…</div>
+        <div class="loading-step" style="animation-delay:3s"><span class="dot-ind"></span>Finding beaches, sports & photo spots…</div>
+        <div class="loading-step" style="animation-delay:5s"><span class="dot-ind"></span>Building your day-by-day schedule…</div>
+        <div class="loading-step" style="animation-delay:8s"><span class="dot-ind"></span>Adding allergy-safe restaurant recommendations…</div>
+        <div class="loading-step" style="animation-delay:12s"><span class="dot-ind"></span>Finalizing your itinerary…</div>
+      </div>
+    </div>
+    <div id="itinOutput"></div>
+    <div id="errorBox" class="error-box"></div>
+  </div>
+
+</div>
+
+<script>
+const SUPABASE_URL = 'https://hjfhhezebxlniuxstdzp.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhqZmhoZXplYnhsbml1eHN0ZHpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg5NjU1MjgsImV4cCI6MjA5NDU0MTUyOH0.CjgOaKbk2OLiNF3qJIVwiCL_c7KvaaVzATNlqIC9aK0';
+const WORKER_URL = 'https://portugal-proxy.tenbit.workers.dev';
+
+let familyWishes = {};
+
+function tog(el){ el.classList.toggle('on'); }
+
+async function loadWishes(){
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/wishes?select=*`, {
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`
+      }
+    });
+    const data = await res.json();
+    familyWishes = {};
+    data.forEach(row => { familyWishes[row.person] = row; });
+    renderStatusCards(data);
+  } catch(err) {
+    console.error('Could not load wishes:', err);
+  }
+}
+
+function renderStatusCards(data){
+  const people = [
+    { name:'Abby', role:'Mom', av:'av-abby', emoji:'👩', file:'abby.html' },
+    { name:'Lucas', role:'19 · Son', av:'av-lucas', emoji:'🧑', file:'lucas.html' },
+    { name:'Nathanael', role:'17 · Son ⚠ Allergy', av:'av-nate', emoji:'🧑', file:'nathanael.html' },
+    { name:'Leah', role:'15 · Daughter', av:'av-leah', emoji:'👧', file:'leah.html' }
+  ];
+
+  const grid = document.getElementById('statusGrid');
+  grid.innerHTML = people.map(p => {
+    const row = data.find(r => r.person === p.name);
+    if(row){
+      const chips = (row.chips||[]).slice(0,3);
+      const time = row.updated_at ? new Date(row.updated_at).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}) : '';
+      return `
+        <div class="status-card submitted">
+          <div class="sc-top">
+            <div class="sc-avatar ${p.av}">${p.emoji}</div>
+            <div><div class="sc-name">${p.name}</div><div class="sc-role">${p.role}</div></div>
+          </div>
+          <div class="sc-status done"><span class="sc-dot done"></span>Submitted ✓</div>
+          <div class="sc-chips">${chips.map(c=>`<span class="sc-chip">${c}</span>`).join('')}${(row.chips||[]).length>3?`<span class="sc-chip">+${row.chips.length-3} more</span>`:''}</div>
+          ${row.extra?`<div class="sc-extra">➕ "${row.extra}"</div>`:''}
+          <div class="sc-time">Submitted ${time}</div>
+        </div>`;
+    } else {
+      return `
+        <div class="status-card waiting">
+          <div class="sc-top">
+            <div class="sc-avatar ${p.av}">${p.emoji}</div>
+            <div><div class="sc-name">${p.name}</div><div class="sc-role">${p.role}</div></div>
+          </div>
+          <div class="sc-status pending"><span class="sc-dot pending"></span>Waiting…</div>
+          <a href="${p.file}" class="sc-link" target="_blank">→ Open ${p.name}'s page</a>
+        </div>`;
+    }
+  }).join('');
+
+  const pending = people.filter(p => !data.find(r => r.person === p.name));
+  document.getElementById('waitingNote').style.display = pending.length > 0 ? 'block' : 'none';
+}
+
+function collectTenbitWishes(){
+  const chips = [...document.querySelectorAll('.tenbit-section .chip.on')].map(c => c.textContent.trim());
+  const extra = document.getElementById('extra-Tenbit').value.trim();
+  return { chips, extra };
+}
+
+function getTags(txt){
+  const t=[];
+  if(/lisbon|alfama|belem|sintra|cascais|lx factory|bairro alto|chiado/i.test(txt)) t.push('<span class="day-tag tag-city">📍 Lisbon</span>');
+  if(/faro|algarve|lagos|albufeira|portimão|marinha|benagil|carvoeiro|sagres/i.test(txt)) t.push('<span class="day-tag tag-beach">📍 Algarve</span>');
+  if(/beach|surf|ocean|swim|snorkel|jet ski|kayak|cave|cliff/i.test(txt)) t.push('<span class="day-tag tag-beach">🏖 Beach & Water</span>');
+  if(/basketball|skate|sport|soccer|football|volleyball/i.test(txt)) t.push('<span class="day-tag tag-sport">🏀 Sports</span>');
+  if(/restaurant|food|dinner|lunch|café|cafe|pastel|seafood|eat/i.test(txt)) t.push('<span class="day-tag tag-food">🍽 Food</span>');
+  if(/instagram|photo|tiktok|influencer|aesthetic|shot of the day/i.test(txt)) t.push('<span class="day-tag tag-photo">📸 Photo Spots</span>');
+  if(/fly|depart|arrive|airport|transfer|drive south/i.test(txt)) t.push('<span class="day-tag tag-travel">✈ Travel</span>');
+  return t.slice(0,3).join('');
+}
+
+function fmtBody(raw){
+  return raw
+    .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+    .replace(/__(.*?)__/g,'<strong>$1</strong>')
+    .replace(/^[-•]\s+/gm,'• ')
+    .replace(/\b(Morning):/gi,'<br><span class="time-lbl">🌅 Morning</span><br>')
+    .replace(/\b(Afternoon):/gi,'<br><span class="time-lbl">☀️ Afternoon</span><br>')
+    .replace(/\b(Evening|Night):/gi,'<br><span class="time-lbl">🌙 Evening</span><br>')
+    .replace(/\b(Lunch):/gi,'<br><span class="time-lbl">🍽 Lunch</span><br>')
+    .replace(/\b(Dinner):/gi,'<br><span class="time-lbl">🍷 Dinner</span><br>')
+    .replace(/\b(Breakfast):/gi,'<br><span class="time-lbl">☕ Breakfast</span><br>')
+    .replace(/📸[^\n]*/g,'<br><span style="background:#FFF0F5;border:1px solid #FFB6C1;padding:4px 10px;border-radius:8px;font-size:0.82rem;color:#C0186A;display:inline-block;margin:6px 0;">$&</span><br>')
+    .replace(/⚠[^\n]*/g,'<span class="allergy-note">⚠ Confirm allergens for Nathanael</span>')
+    .replace(/\n{2,}/g,'<br><br>')
+    .replace(/\n/g,'<br>');
+}
+
+function buildCards(text){
+  let intro='', cards='';
+  const dayHeaderRx=/(?:^|\n)\s*(?:\*{0,2}#{0,3}\s*)?(?:Day|DAY)\s+(\d+)\s*[:\-–—*]?\s*\*{0,2}([^\n]*)/g;
+  const matches=[...text.matchAll(dayHeaderRx)];
+  if(matches.length===0){
+    const formatted=text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+    cards=`<div class="day-block"><div class="day-content open"><div class="day-content-inner"><div class="day-text">${formatted}</div></div></div></div>`;
+    return{intro,cards};
+  }
+  intro=text.slice(0,matches[0].index).trim().replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+  for(let i=0;i<matches.length;i++){
+    const m=matches[i];
+    const num=parseInt(m[1]);
+    const title=m[2].replace(/\*\*/g,'').replace(/#+/g,'').trim();
+    const start=m.index+m[0].length;
+    const end=i+1<matches.length?matches[i+1].index:text.length;
+    const body=text.slice(start,end).trim();
+    const tags=getTags(body+title);
+    const open=num<=2;
+    cards+=`
+    <div class="day-block">
+      <div class="day-header${open?' open':''}" onclick="toggleDay(this)">
+        <div class="day-num">${num}</div>
+        <div class="day-meta">
+          <div class="day-title">${num===1?'✈ ':''}Day ${num}${title?' — '+title:''}</div>
+          <div class="day-tags">${tags}</div>
+        </div>
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-content${open?' open':''}">
+        <div class="day-content-inner">
+          <div class="day-text">${fmtBody(body)}</div>
+        </div>
+      </div>
+    </div>`;
+  }
+  return{intro,cards};
+}
+
+function toggleDay(hdr){
+  hdr.classList.toggle('open');
+  hdr.nextElementSibling.classList.toggle('open');
+}
+
+async function generateItinerary(){
+  const days = document.getElementById('tripLength').value;
+  const pace = document.getElementById('tripPace').value;
+  const hotel = document.getElementById('hotelStyle').value;
+  const tours = document.getElementById('tourPref').value;
+  const tenbit = collectTenbitWishes();
+
+  // Build wish text from all sources
+  let wishText = '';
+  const allWishes = { ...familyWishes };
+
+  // Add Tenbit's wishes
+  if(tenbit.chips.length || tenbit.extra){
+    wishText += `\n- Tenbit: ${tenbit.chips.length ? tenbit.chips.join(', ') : 'open to anything'}`;
+    if(tenbit.extra) wishText += `\n    ➕ Tenbit also asked for: "${tenbit.extra}"`;
+  }
+
+  ['Abby','Lucas','Nathanael','Leah'].forEach(name => {
+    const w = allWishes[name];
+    if(w){
+      wishText += `\n- ${name}: ${w.chips && w.chips.length ? w.chips.join(', ') : 'open to anything'}`;
+      if(w.extra) wishText += `\n    ➕ ${name} also asked for: "${w.extra}"`;
+    } else {
+      wishText += `\n- ${name}: (no response yet — use family defaults)`;
+    }
+  });
+
+  document.getElementById('itinSection').style.display = 'block';
+  document.getElementById('loadingWrap').style.display = 'flex';
+  document.getElementById('itinOutput').innerHTML = '';
+  document.getElementById('errorBox').style.display = 'none';
+  document.getElementById('aiRecBox').style.display = 'none';
+  document.getElementById('genBtn').disabled = true;
+  window.scrollTo({top: document.getElementById('itinSection').offsetTop - 20, behavior:'smooth'});
+
+  document.getElementById('itinSummary').innerHTML = `
+    <div class="isum"><span class="l">AI Route</span><span class="v">✈ SFO → Lisbon → Faro → SFO</span></div>
+    <div class="isum"><span class="l">Duration</span><span class="v">${days} days</span></div>
+    <div class="isum"><span class="l">Travelers</span><span class="v">Tenbit, Abby, Lucas, Nathanael & Leah</span></div>
+    <div class="isum"><span class="l">Allergy</span><span class="v">⚠ Nathanael flagged at every meal</span></div>`;
+
+  const callAI = async (prompt) => {
+    const res = await fetch(WORKER_URL, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-6',
+        max_tokens:4000,
+        messages:[{role:'user', content:prompt}]
+      })
+    });
+    const data = await res.json();
+    if(!res.ok) throw new Error(data.error?.message||'API error');
+    return data.content?.map(b=>b.text||'').join('\n')||'';
+  };
+
+  try {
+    const lisbonDays = Math.min(6, parseInt(days) - 3);
+    const algarveDays = parseInt(days) - lisbonDays;
+
+    const prompt1 = `You are an expert Portugal travel planner AI. A family of 5 from San Francisco, California is planning their Portugal vacation in Summer 2026.
+
+FAMILY:
+- Tenbit (Dad) — experienced traveler, loves food, wine, culture, scenic views
+- Abby (Mom) — experienced traveler, loves cafés, shopping, beaches, wellness
+- Lucas (19, son) — first time abroad. Surfing, jet skiing, skateboarding, basketball, nightlife
+- Nathanael (17, son) — first time abroad. Basketball, jet skiing, snorkeling, beach sports. HAS FOOD ALLERGY — add ⚠ at every dinner
+- Leah (15, daughter) — first time abroad. Instagram/TikTok, influencer spots, aesthetic cafés, beautiful beaches
+
+EVERYONE'S WISHES:${wishText}
+PACE: ${pace} | ACCOMMODATION: ${hotel} | TOURING: ${tours}
+
+PART 1 — Write 3-4 sentences explaining WHY Lisbon and the Algarve are perfect for this specific family. Reference their actual wishes. Make it personal.
+
+PART 2 — Write ONLY Days 1 through ${lisbonDays}, all Lisbon area.
+- Include Sintra day trip for Leah's Pena Palace photos
+- Include LX Factory for Leah
+- Include a Fado evening for Tenbit & Abby
+- Include basketball courts or skate spots for the boys
+- End Day ${lisbonDays} with: "Tomorrow: we drive south to the Algarve!"
+
+FORMAT FOR EACH DAY:
+Day [N]: [catchy title]
+Morning: [details with real place names]
+Afternoon: [details with real place names]
+Evening: [dinner recommendation + ⚠ Nathanael: confirm allergen menu]
+
+Every 2 days add: 📸 Leah's Shot of the Day: [specific spot and why it's trending]`;
+
+    const prompt2 = `You are an expert Portugal travel planner AI continuing a family itinerary. The Tenbit family just finished ${lisbonDays} days in Lisbon and is heading to the Algarve.
+
+FAMILY:
+- Tenbit (Dad) — food, wine, scenic views
+- Abby (Mom) — cafés, shopping, beaches, wellness
+- Lucas (19) — surfing, jet skiing, skateboarding, basketball, nightlife
+- Nathanael (17) — basketball, jet skiing, snorkeling, beach sports. HAS FOOD ALLERGY — add ⚠ at every dinner
+- Leah (15) — Instagram/TikTok, influencer spots, beautiful beaches, aesthetic content
+
+EVERYONE'S WISHES:${wishText}
+PACE: ${pace}
+
+Write ONLY Days ${lisbonDays+1} through ${days}. Do NOT repeat earlier days.
+
+- Day ${lisbonDays+1}: Travel day — scenic drive Lisbon to Algarve (Lagos/Albufeira). Suggest one stop en route.
+- Days ${lisbonDays+2}–${parseInt(days)-1}: Full Algarve beach mode. Include: Benagil Cave boat tour, jet ski rental, snorkeling, Praia da Marinha for Leah, rooftop sunset bar, night market dining, beach sports for the boys.
+- Day ${days}: Easy morning, transfer to Faro Airport, fly home to SFO. End with a warm family send-off.
+
+FORMAT FOR EACH DAY:
+Day [N]: [catchy title]
+Morning: [details with real place names]
+Afternoon: [details with real place names]
+Evening: [dinner recommendation + ⚠ Nathanael: confirm allergen menu]
+
+Every 2-3 days add: 📸 Leah's Shot of the Day: [specific Algarve spot]
+
+After Day ${days}, write a "🇵🇹 Tips For Your Family" section with 6 practical tips: food allergy navigation in Portugal, safe teen-walkable areas, best SIM card from SFO, tipping culture, getting around, and one thing that will surprise the kids.`;
+
+    const [text1, text2] = await Promise.all([callAI(prompt1), callAI(prompt2)]);
+    const fullText = text1 + '\n' + text2;
+
+    const {intro, cards} = buildCards(fullText);
+
+    if(intro){
+      document.getElementById('aiRecText').innerHTML = intro.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+      document.getElementById('aiRecBox').style.display = 'block';
+    }
+
+    document.getElementById('loadingWrap').style.display = 'none';
+    document.getElementById('itinOutput').innerHTML = cards || `<div class="day-text">${fullText.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>')}</div>`;
+
+  } catch(err){
+    document.getElementById('loadingWrap').style.display = 'none';
+    document.getElementById('errorBox').innerHTML = `<strong>Something went wrong.</strong><br><small>${err.message}</small>`;
+    document.getElementById('errorBox').style.display = 'block';
+  }
+
+  document.getElementById('genBtn').disabled = false;
+}
+
+// Load on page open
+loadWishes();
+</script>
+</body>
+</html>
