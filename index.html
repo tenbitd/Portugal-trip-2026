@@ -734,44 +734,80 @@ function downloadPDF(){
   const el = document.getElementById('itinOutput');
   if(!el || !el.innerHTML){ alert('Generate the itinerary first!'); return; }
 
-  // Open all day blocks for PDF
-  document.querySelectorAll('.day-content').forEach(d => d.classList.add('open'));
-  document.querySelectorAll('.day-header').forEach(h => h.classList.add('open'));
+  const btn = document.getElementById('pdfBtn');
+  btn.textContent = '⏳ Preparing PDF…';
+  btn.disabled = true;
+
+  // Build a clean self-contained HTML document for the PDF
+  const recBox = document.getElementById('aiRecBox');
+  const recText = recBox && recBox.style.display !== 'none'
+    ? `<div style="background:#EEF6FF;border:1px solid #C3DDF5;border-radius:8px;padding:16px 20px;margin-bottom:24px;">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#1A4F8A;margin-bottom:8px;">🤖 Why Portugal for Your Family</div>
+        <div style="font-size:13px;line-height:1.7;color:#334155;">${document.getElementById('aiRecText').innerHTML}</div>
+      </div>` : '';
+
+  // Extract all day content into clean flat HTML
+  let daysHtml = '';
+  document.querySelectorAll('.day-block').forEach((block, i) => {
+    const numEl = block.querySelector('.day-num');
+    const titleEl = block.querySelector('.day-title');
+    const tagsEl = block.querySelector('.day-tags');
+    const bodyEl = block.querySelector('.day-text');
+
+    const num = numEl ? numEl.textContent.trim() : (i+1);
+    const title = titleEl ? titleEl.textContent.trim() : '';
+    const tags = tagsEl ? tagsEl.innerText.trim() : '';
+    const body = bodyEl ? bodyEl.innerHTML : '';
+
+    daysHtml += `
+      <div style="background:white;border:1px solid #E5DDD0;border-radius:12px;margin-bottom:16px;overflow:hidden;page-break-inside:avoid;">
+        <div style="background:#0A2240;padding:14px 20px;display:flex;align-items:center;gap:14px;">
+          <div style="width:40px;height:40px;border-radius:10px;background:#C9963A;color:#0A2240;font-size:1rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">${num}</div>
+          <div>
+            <div style="font-family:Georgia,serif;font-size:1.1rem;font-weight:700;color:white;">${title}</div>
+            ${tags ? `<div style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:3px;">${tags}</div>` : ''}
+          </div>
+        </div>
+        <div style="padding:16px 20px;font-size:13px;line-height:1.8;color:#374151;">${body}</div>
+      </div>`;
+  });
+
+  const fullHtml = `
+    <div style="font-family:Georgia,serif;max-width:750px;margin:0 auto;padding:20px;color:#111827;">
+      <div style="text-align:center;margin-bottom:30px;padding-bottom:20px;border-bottom:3px solid #C9963A;">
+        <div style="font-size:2rem;font-weight:700;color:#0A2240;margin-bottom:6px;">🇵🇹 Tenbit Family Portugal 2026</div>
+        <div style="font-size:1rem;color:#6B7280;">SFO → Lisbon → Algarve → SFO · Summer 2026</div>
+        <div style="font-size:0.85rem;color:#C9963A;margin-top:6px;">✈ Tenbit · Abby · Lucas · Nathanael · Leah</div>
+      </div>
+      ${recText}
+      ${daysHtml}
+      <div style="text-align:center;margin-top:30px;padding-top:20px;border-top:2px solid #E5DDD0;color:#6B7280;font-size:12px;">
+        Generated with ❤️ for the Tenbit Family · Portugal 2026
+      </div>
+    </div>`;
+
+  const wrapper = document.createElement('div');
+  wrapper.innerHTML = fullHtml;
+  wrapper.style.cssText = 'position:fixed;left:-9999px;top:0;width:800px;background:white;';
+  document.body.appendChild(wrapper);
 
   const opt = {
-    margin: [15, 15, 15, 15],
+    margin: [10, 10, 10, 10],
     filename: 'Tenbit-Family-Portugal-2026.pdf',
-    image: { type:'jpeg', quality:0.98 },
-    html2canvas: { scale:2, useCORS:true },
+    image: { type:'jpeg', quality:0.95 },
+    html2canvas: { scale:2, useCORS:true, backgroundColor:'#ffffff' },
     jsPDF: { unit:'mm', format:'a4', orientation:'portrait' }
   };
 
-  const wrapper = document.createElement('div');
-  wrapper.style.cssText = 'font-family:Georgia,serif;max-width:800px;margin:0 auto;padding:20px;';
-
-  const header = document.createElement('div');
-  header.style.cssText = 'text-align:center;margin-bottom:30px;padding-bottom:20px;border-bottom:3px solid #C9963A;';
-  header.innerHTML = `
-    <h1 style="font-size:2rem;color:#0A2240;margin-bottom:6px;">🇵🇹 Tenbit Family Portugal 2026</h1>
-    <p style="color:#6B7280;font-size:1rem;">SFO → Lisbon → Algarve → SFO · Summer 2026</p>
-    <p style="color:#C9963A;font-size:0.85rem;margin-top:8px;">✈ Tenbit · Abby · Lucas · Nathanael · Leah</p>`;
-
-  const recBox = document.getElementById('aiRecBox');
-  let recHtml = '';
-  if(recBox && recBox.style.display !== 'none'){
-    recHtml = `<div style="background:#EEF6FF;border:1px solid #C3DDF5;border-radius:8px;padding:16px 20px;margin-bottom:24px;">
-      <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#1A4F8A;margin-bottom:8px;">🤖 Why Portugal for Your Family</div>
-      <div style="font-size:0.9rem;line-height:1.7;color:#334155;">${document.getElementById('aiRecText').innerHTML}</div>
-    </div>`;
-  }
-
-  wrapper.appendChild(header);
-  wrapper.innerHTML += recHtml + el.outerHTML;
-
-  document.body.appendChild(wrapper);
-
   html2pdf().set(opt).from(wrapper).save().then(() => {
     document.body.removeChild(wrapper);
+    btn.textContent = '⬇️ Download as PDF';
+    btn.disabled = false;
+  }).catch(err => {
+    document.body.removeChild(wrapper);
+    btn.textContent = '⬇️ Download as PDF';
+    btn.disabled = false;
+    alert('PDF generation failed: ' + err.message);
   });
 }
 
