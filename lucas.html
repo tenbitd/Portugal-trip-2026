@@ -3,121 +3,51 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lucas's Portugal Wishes 🇵🇹</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>Lucas's Portugal Wishes</title>
+<link rel="stylesheet" href="shared.css">
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-:root {
-  --navy:#0A2240; --blue:#1A4F8A; --gold:#C9963A; --gold-light:#E8B85A;
-  --cream:#FBF6EE; --dark:#111827; --muted:#6B7280; --border:#E5DDD0;
-  --lucas:#1A5C2A; --lucas-light:#2E8B57;
-}
-body { font-family:'Outfit',sans-serif; background:var(--cream); color:var(--dark); min-height:100vh; }
-
-nav {
-  background:var(--navy); padding:14px 32px;
-  display:flex; justify-content:space-between; align-items:center;
-  position:sticky; top:0; z-index:200;
-  box-shadow:0 2px 24px rgba(10,34,64,0.5);
-}
-.nav-logo { font-family:'Cormorant Garamond',serif; color:var(--gold); font-size:1.3rem; font-weight:600; }
-.nav-logo span { color:white; font-style:italic; }
-.nav-family { display:flex; gap:8px; }
-.nav-pill { padding:6px 16px; border-radius:100px; font-size:0.75rem; font-weight:600; letter-spacing:0.5px; text-decoration:none; border:1.5px solid rgba(255,255,255,0.15); color:rgba(255,255,255,0.5); transition:all 0.2s; }
-.nav-pill:hover { border-color:var(--gold); color:var(--gold); }
-.nav-pill.me { background:var(--lucas); border-color:var(--lucas); color:white; }
-
-.hero {
-  background:linear-gradient(150deg,#0a2a10 0%,#1A5C2A 55%,#2E8B57 100%);
-  padding:56px 32px 64px; text-align:center; position:relative; overflow:hidden;
-}
-.hero::before {
-  content:''; position:absolute; inset:0; pointer-events:none;
-  background-image:
-    radial-gradient(circle at 20% 50%,rgba(232,184,90,0.08) 0%,transparent 50%),
-    radial-gradient(circle at 80% 20%,rgba(232,184,90,0.06) 0%,transparent 40%),
-    repeating-linear-gradient(45deg,transparent,transparent 30px,rgba(255,255,255,0.015) 30px,rgba(255,255,255,0.015) 31px);
-}
-.hero-eyebrow {
-  display:inline-flex; align-items:center; gap:8px;
-  background:rgba(232,184,90,0.15); border:1px solid rgba(232,184,90,0.3);
-  color:#E8B85A; padding:5px 16px; border-radius:100px;
-  font-size:0.72rem; font-weight:600; letter-spacing:2px; text-transform:uppercase;
-  margin-bottom:22px; position:relative;
-}
-.hero h1 { font-family:'Cormorant Garamond',serif; font-size:clamp(2.4rem,5vw,4rem); font-weight:700; color:white; line-height:1.1; margin-bottom:14px; position:relative; }
-.hero h1 em { color:#E8B85A; font-style:italic; }
-.hero-sub { color:rgba(255,255,255,0.72); font-size:1rem; max-width:500px; margin:0 auto; line-height:1.75; position:relative; }
-
-.form-wrap { max-width:860px; margin:0 auto; padding:52px 24px 80px; }
-
-.cat-section { background:white; border-radius:18px; border:2px solid var(--border); padding:28px; margin-bottom:22px; transition:border-color 0.2s; }
-.cat-section:hover { border-color:#b0d0b8; }
-.cat-header { display:flex; align-items:center; gap:12px; margin-bottom:18px; }
-.cat-icon { font-size:1.4rem; }
-.cat-title { font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-weight:700; color:var(--navy); }
-.cat-hint { font-size:0.78rem; color:var(--muted); margin-top:2px; }
-.chips { display:flex; flex-wrap:wrap; gap:8px; }
-.chip { padding:7px 16px; border-radius:100px; font-size:0.8rem; font-weight:500; cursor:pointer; border:1.5px solid #DDD5C8; background:transparent; color:#555; transition:all 0.18s; user-select:none; font-family:'Outfit',sans-serif; }
-.chip:hover { border-color:var(--lucas); color:var(--lucas); background:rgba(26,92,42,0.05); }
-.chip.on { background:var(--lucas); border-color:var(--lucas); color:white; }
-
-.freetext-section { margin-top:20px; padding-top:18px; border-top:1px dashed #EDE8E0; }
-.freetext-section label { font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:1.8px; color:#B0A090; display:block; margin-bottom:8px; }
-.freetext-section input {
-  width:100%; padding:11px 15px; border:1.5px solid #DDD5C8; border-radius:10px;
-  font-family:'Outfit',sans-serif; font-size:0.88rem; color:var(--dark);
-  background:#FAFAF8; outline:none; transition:border-color 0.2s;
-}
-.freetext-section input:focus { border-color:var(--lucas); background:white; }
-.freetext-section input::placeholder { color:#BBAC99; }
-
-.submit-bar { background:linear-gradient(135deg,#0a2a10,#1A5C2A); border-radius:20px; padding:40px; text-align:center; position:relative; overflow:hidden; }
-.submit-bar::before { content:''; position:absolute; inset:0; background:repeating-linear-gradient(45deg,transparent,transparent 20px,rgba(255,255,255,0.02) 20px,rgba(255,255,255,0.02) 21px); }
-.submit-bar h3 { font-family:'Cormorant Garamond',serif; font-size:1.5rem; color:white; margin-bottom:6px; position:relative; }
-.submit-bar p { color:rgba(255,255,255,0.6); font-size:0.88rem; margin-bottom:24px; position:relative; }
-.btn-submit { position:relative; background:var(--gold); color:var(--navy); border:none; padding:15px 48px; border-radius:100px; font-size:1rem; font-weight:700; font-family:'Outfit',sans-serif; cursor:pointer; transition:all 0.22s; box-shadow:0 4px 24px rgba(201,150,58,0.4); }
-.btn-submit:hover { background:var(--gold-light); transform:translateY(-2px); }
-.btn-submit:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
-
-.success-box { background:#F0FFF4; border:2px solid #2E8B57; border-radius:16px; padding:32px; text-align:center; display:none; }
-.success-box h3 { font-family:'Cormorant Garamond',serif; font-size:1.6rem; color:#1A5C2A; margin-bottom:8px; }
-.success-box p { color:#2d6a3f; font-size:0.92rem; }
-.error-box { background:#FFF5F5; border:1px solid #FECACA; border-radius:14px; padding:20px; color:#991B1B; text-align:center; font-size:0.88rem; display:none; margin-top:16px; }
-
-@media(max-width:640px){
-  nav{padding:12px 16px;}
-  .hero{padding:40px 18px 50px;}
-  .form-wrap{padding:32px 16px 60px;}
-  .nav-family{display:none;}
-}
+:root{--accent:#2E8B57;--accent-dim:#1A5C2A;--accent-bg:rgba(46,139,87,0.08);}
+.chip:hover{border-color:var(--accent-dim);color:var(--accent);background:var(--accent-bg);}
+.chip.on{background:var(--accent-bg);border-color:var(--accent);color:var(--accent);}
+.field-input:focus{border-color:var(--accent-dim);}
+.nav-pill.me{background:var(--accent-bg);border-color:var(--accent-dim);color:var(--accent);}
+.form-wrap{max-width:820px;margin:0 auto;padding:52px 24px 80px;}
+.cat-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:28px;margin-bottom:16px;transition:border-color 0.2s;}
+.cat-card:hover{border-color:var(--border2);}
+.cat-header{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+.cat-icon{font-size:1.4rem;}
+.cat-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--text);}
+.cat-hint{font-size:0.75rem;color:var(--text3);margin-top:2px;}
+.submit-bar{background:var(--surface);border:1px solid rgba(46,139,87,0.2);border-radius:24px;padding:44px;text-align:center;position:relative;overflow:hidden;margin-top:24px;}
+.submit-bar::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 0%,rgba(46,139,87,0.04) 0%,transparent 70%);}
+.submit-bar h3{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--text);margin-bottom:6px;position:relative;}
+.submit-bar p{color:var(--text2);font-size:0.88rem;margin-bottom:24px;position:relative;}
+.btn-submit{background:var(--accent);color:white;border:none;padding:15px 48px;border-radius:100px;font-size:1rem;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all 0.22s;box-shadow:0 0 40px rgba(46,139,87,0.25);position:relative;}
+.btn-submit:hover{opacity:0.9;transform:translateY(-2px);}
+.btn-submit:disabled{opacity:0.4;cursor:not-allowed;transform:none;}
+@media(max-width:640px){.form-wrap{padding:32px 16px 60px;}}
 </style>
 </head>
 <body>
-
-<nav>
-  <div class="nav-logo">✈ <span>Tenbit Family</span> Portugal 2026</div>
-  <div class="nav-family">
+<nav class="nav">
+  <div class="nav-logo">✈ Portugal 2026 <span class="sub">· Tenbit Family</span></div>
+  <div class="nav-pills">
     <a href="abby.html" class="nav-pill">👩 Abby</a>
     <a href="lucas.html" class="nav-pill me">🧑 Lucas</a>
     <a href="nathanael.html" class="nav-pill">🧑 Nathanael</a>
     <a href="leah.html" class="nav-pill">👧 Leah</a>
   </div>
 </nav>
-
 <div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
   <div class="hero-eyebrow">✈ First Time Abroad — Summer 2026</div>
-  <h1>Lucas's <em>Portugal Wishes</em></h1>
-  <p class="hero-sub">Yo Lucas! First time leaving the US and we're going BIG. Tell Dad what you want — surf, sports, nightlife, food — put it all in. 🤙</p>
+  <h1>Lucas's <em>Portugal</em><br>Wishes</h1>
+  <p class="hero-sub">Yo Lucas! First time leaving the US and we're going BIG. Tell Dad what you want — surf, sports, nightlife — put it all in. 🤙</p>
 </div>
-
 <div class="form-wrap">
-
-  <div class="cat-section">
-    <div class="cat-header">
-      <div class="cat-icon">🏄</div>
-      <div><div class="cat-title">Water Sports</div><div class="cat-hint">What do you want to do on the water?</div></div>
-    </div>
+  <div class="cat-card">
+    <div class="cat-header"><div class="cat-icon">🏄</div><div><div class="cat-title">Water Sports</div><div class="cat-hint">What do you want to do on the water?</div></div></div>
     <div class="chips">
       <span class="chip" onclick="tog(this)">Jet skiing</span>
       <span class="chip" onclick="tog(this)">Surfing & surf lessons</span>
@@ -126,16 +56,12 @@ nav {
       <span class="chip" onclick="tog(this)">Boat rental</span>
       <span class="chip" onclick="tog(this)">Swimming in the ocean</span>
       <span class="chip" onclick="tog(this)">Cliff jumping spots</span>
-      <span class="chip" onclick="tog(this)">Sea caves & grottos by boat</span>
+      <span class="chip" onclick="tog(this)">Sea caves & grottos</span>
       <span class="chip" onclick="tog(this)">Snorkeling</span>
     </div>
   </div>
-
-  <div class="cat-section">
-    <div class="cat-header">
-      <div class="cat-icon">🛹</div>
-      <div><div class="cat-title">Street & Court Sports</div><div class="cat-hint">Keep the grind going in Portugal</div></div>
-    </div>
+  <div class="cat-card">
+    <div class="cat-header"><div class="cat-icon">🛹</div><div><div class="cat-title">Street & Court Sports</div><div class="cat-hint">Keep the grind going in Portugal</div></div></div>
     <div class="chips">
       <span class="chip" onclick="tog(this)">Skateboarding spots & parks</span>
       <span class="chip" onclick="tog(this)">Outdoor basketball courts</span>
@@ -145,12 +71,8 @@ nav {
       <span class="chip" onclick="tog(this)">Pickup basketball game</span>
     </div>
   </div>
-
-  <div class="cat-section">
-    <div class="cat-header">
-      <div class="cat-icon">🍔</div>
-      <div><div class="cat-title">Food & Fuel</div><div class="cat-hint">What keeps you going?</div></div>
-    </div>
+  <div class="cat-card">
+    <div class="cat-header"><div class="cat-icon">🍔</div><div><div class="cat-title">Food & Fuel</div><div class="cat-hint">What keeps you going?</div></div></div>
     <div class="chips">
       <span class="chip" onclick="tog(this)">Big grilled meat meals</span>
       <span class="chip" onclick="tog(this)">Street food & snacks</span>
@@ -160,12 +82,8 @@ nav {
       <span class="chip" onclick="tog(this)">Fresh seafood</span>
     </div>
   </div>
-
-  <div class="cat-section">
-    <div class="cat-header">
-      <div class="cat-icon">🎉</div>
-      <div><div class="cat-title">Nightlife & Vibes</div><div class="cat-hint">How do you want to spend your nights?</div></div>
-    </div>
+  <div class="cat-card">
+    <div class="cat-header"><div class="cat-icon">🎉</div><div><div class="cat-title">Nightlife & Vibes</div><div class="cat-hint">How do you want to spend your nights?</div></div></div>
     <div class="chips">
       <span class="chip" onclick="tog(this)">Trendy rooftop bars</span>
       <span class="chip" onclick="tog(this)">Nightlife & music venues</span>
@@ -174,70 +92,43 @@ nav {
       <span class="chip" onclick="tog(this)">Explore city at night</span>
     </div>
   </div>
-
-  <div class="cat-section">
-    <div class="freetext-section" style="margin-top:0;padding-top:0;border-top:none;">
-      <label>✏️ Anything else, Lucas? Add your own wish!</label>
-      <input type="text" id="extra-Lucas" placeholder="e.g. I want to find a local pickup basketball game, try paragliding…" />
-    </div>
+  <div class="cat-card">
+    <label class="field-label">✏️ Anything else, Lucas? Add your own wish!</label>
+    <input type="text" id="extra-Lucas" class="field-input" placeholder="e.g. I want to find a local pickup basketball game, try paragliding…" />
   </div>
-
   <div class="submit-bar">
     <h3>Send your wishes to Dad 🤙</h3>
     <p>Hit submit and Dad will build the trip around what you picked. This is gonna be legendary.</p>
     <button class="btn-submit" id="submitBtn" onclick="submitWishes()">✨ Send My Wishes to Dad</button>
   </div>
-
-  <div class="success-box" id="successBox">
+  <div class="success-box" id="successBox" style="margin-top:20px;">
     <h3>🎉 Wishes sent, Lucas!</h3>
-    <p>Dad can now see everything you picked. Portugal 2026 is going to be insane! 🇵🇹🤙</p>
+    <p>Dad can see everything you picked. Portugal 2026 is going to be insane! 🇵🇹🤙</p>
   </div>
-  <div class="error-box" id="errorBox"></div>
-
+  <div class="error-box" id="errorBox" style="margin-top:16px;"></div>
 </div>
-
 <script>
-const SUPABASE_URL = 'https://hjfhhezebxlniuxstdzp.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhqZmhoZXplYnhsbml1eHN0ZHpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg5NjU1MjgsImV4cCI6MjA5NDU0MTUyOH0.CjgOaKbk2OLiNF3qJIVwiCL_c7KvaaVzATNlqIC9aK0';
-
-function tog(el){ el.classList.toggle('on'); }
-
+const SUPABASE_URL='https://hjfhhezebxlniuxstdzp.supabase.co';
+const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhqZmhoZXplYnhsbml1eHN0ZHpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg5NjU1MjgsImV4cCI6MjA5NDU0MTUyOH0.CjgOaKbk2OLiNF3qJIVwiCL_c7KvaaVzATNlqIC9aK0';
+function tog(el){el.classList.toggle('on');}
 async function submitWishes(){
-  const chips = [...document.querySelectorAll('.chip.on')].map(c => c.textContent.trim());
-  const extra = document.getElementById('extra-Lucas').value.trim();
-
-  if(chips.length === 0 && !extra){
-    document.getElementById('errorBox').textContent = 'Please select at least one wish before submitting!';
-    document.getElementById('errorBox').style.display = 'block';
-    return;
-  }
-
-  document.getElementById('submitBtn').disabled = true;
-  document.getElementById('submitBtn').textContent = 'Sending…';
-  document.getElementById('errorBox').style.display = 'none';
-
-  try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/wishes`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`,
-        'Prefer': 'resolution=merge-duplicates'
-      },
-      body: JSON.stringify({ person:'Lucas', chips, extra, updated_at: new Date().toISOString() })
-    });
-
-    if(!res.ok){ const e = await res.text(); throw new Error(e); }
-
-    document.querySelector('.submit-bar').style.display = 'none';
-    document.getElementById('successBox').style.display = 'block';
-    window.scrollTo({top: document.body.scrollHeight, behavior:'smooth'});
-  } catch(err){
-    document.getElementById('errorBox').textContent = 'Something went wrong: ' + err.message;
-    document.getElementById('errorBox').style.display = 'block';
-    document.getElementById('submitBtn').disabled = false;
-    document.getElementById('submitBtn').textContent = '✨ Send My Wishes to Dad';
+  const chips=[...document.querySelectorAll('.chip.on')].map(c=>c.textContent.trim());
+  const extra=document.getElementById('extra-Lucas').value.trim();
+  if(chips.length===0&&!extra){document.getElementById('errorBox').textContent='Please select at least one wish!';document.getElementById('errorBox').style.display='block';return;}
+  document.getElementById('submitBtn').disabled=true;
+  document.getElementById('submitBtn').textContent='Sending…';
+  document.getElementById('errorBox').style.display='none';
+  try{
+    const res=await fetch(`${SUPABASE_URL}/rest/v1/wishes`,{method:'POST',headers:{'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Prefer':'resolution=merge-duplicates'},body:JSON.stringify({person:'Lucas',chips,extra,updated_at:new Date().toISOString()})});
+    if(!res.ok){const e=await res.text();throw new Error(e);}
+    document.querySelector('.submit-bar').style.display='none';
+    document.getElementById('successBox').style.display='block';
+    window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+  }catch(err){
+    document.getElementById('errorBox').textContent='Something went wrong: '+err.message;
+    document.getElementById('errorBox').style.display='block';
+    document.getElementById('submitBtn').disabled=false;
+    document.getElementById('submitBtn').textContent='✨ Send My Wishes to Dad';
   }
 }
 </script>
