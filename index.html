@@ -7,13 +7,29 @@
 <link rel="stylesheet" href="shared.v2.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
-.admin-header{background:var(--shell2);border-bottom:1px solid rgba(201,150,58,0.15);padding:20px 40px;}
-.admin-header-inner{max-width:1020px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;}
-.admin-header-title{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;color:#F5EDE0;line-height:1.1;}
-.admin-header-sub{color:rgba(245,237,224,0.4);font-size:0.8rem;margin-top:3px;}
-.admin-header-badge{background:rgba(201,150,58,0.1);border:1px solid rgba(201,150,58,0.25);color:var(--gold2);padding:6px 16px;border-radius:100px;font-size:0.7rem;font-weight:600;letter-spacing:0.5px;white-space:nowrap;}
-@media(max-width:640px){.admin-header{padding:16px 18px;}.admin-header-title{font-size:1.3rem;}}
 .page-bg{background:#F2EDE6;padding-bottom:80px;}
+
+/* ADMIN BANNER */
+.admin-banner{position:relative;overflow:hidden;background:linear-gradient(135deg,#06101E 0%,#0C1A2E 40%,#112240 70%,#0A1628 100%);padding:52px 40px 44px;border-bottom:1px solid rgba(201,150,58,0.2);}
+.admin-banner-noise{position:absolute;inset:0;opacity:0.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px;}
+.admin-banner-glow{position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:700px;height:300px;background:radial-gradient(ellipse,rgba(201,150,58,0.12) 0%,transparent 65%);pointer-events:none;}
+.admin-banner-dots{position:absolute;inset:0;opacity:0.06;background-image:radial-gradient(circle,rgba(255,255,255,0.8) 1px,transparent 1px);background-size:28px 28px;}
+.admin-banner-inner{position:relative;max-width:1020px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;}
+.admin-banner-left{display:flex;flex-direction:column;gap:10px;}
+.admin-banner-eyebrow{display:flex;align-items:center;gap:10px;font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:2px;}
+.admin-banner-eyebrow::before{content:'';width:24px;height:1px;background:var(--gold);opacity:0.6;}
+.admin-banner-title{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:700;color:#F5EDE0;line-height:1.05;letter-spacing:-0.5px;}
+.admin-banner-title em{color:var(--gold2);font-style:italic;font-weight:400;}
+.admin-banner-sub{color:rgba(245,237,224,0.38);font-size:0.82rem;line-height:1.6;max-width:380px;font-weight:300;}
+.admin-banner-right{display:flex;flex-direction:column;align-items:flex-end;gap:12px;}
+.admin-banner-badge{background:rgba(201,150,58,0.1);border:1px solid rgba(201,150,58,0.3);color:var(--gold2);padding:8px 20px;border-radius:6px;font-size:0.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;}
+.admin-banner-stats{display:flex;gap:1px;border:1px solid rgba(255,255,255,0.07);border-radius:10px;overflow:hidden;}
+.admin-stat{padding:12px 20px;background:rgba(255,255,255,0.04);display:flex;flex-direction:column;gap:3px;min-width:80px;}
+.admin-stat:not(:last-child){border-right:1px solid rgba(255,255,255,0.06);}
+.admin-stat-val{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:#F5EDE0;line-height:1;}
+.admin-stat-lbl{font-size:0.55rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.25);}
+.admin-banner-rule{position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,150,58,0.4),transparent);}
+@media(max-width:640px){.admin-banner{padding:36px 20px 32px;}.admin-banner-title{font-size:1.8rem;}.admin-banner-right{align-items:flex-start;}.admin-banner-stats{width:100%;}.admin-stat{flex:1;min-width:0;}}
 .admin-wrap{max-width:1020px;margin:0 auto;padding:52px 32px 0;}
 .step-block{margin-bottom:48px;}
 .status-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;}
@@ -74,14 +90,26 @@
   <div class="nav-badge">🔐 Admin</div>
 </nav>
 
-<div class="admin-header">
-  <div class="admin-header-inner">
-    <div>
-      <div class="admin-header-title">Command Center</div>
-      <div class="admin-header-sub">Check submissions, configure the trip, and build the itinerary.</div>
+<div class="admin-banner">
+  <div class="admin-banner-noise"></div>
+  <div class="admin-banner-glow"></div>
+  <div class="admin-banner-dots"></div>
+  <div class="admin-banner-inner">
+    <div class="admin-banner-left">
+      <div class="admin-banner-eyebrow">Portugal 2026 · Trip Planner</div>
+      <div class="admin-banner-title"><em>Command</em> Center</div>
+      <div class="admin-banner-sub">Check family submissions, configure the trip, and generate the personalized day-by-day itinerary.</div>
     </div>
-    <div class="admin-header-badge">🔐 Tenbit Only</div>
+    <div class="admin-banner-right">
+      <div class="admin-banner-badge">🔐 Tenbit Only</div>
+      <div class="admin-banner-stats">
+        <div class="admin-stat"><div class="admin-stat-val">5</div><div class="admin-stat-lbl">Travelers</div></div>
+        <div class="admin-stat"><div class="admin-stat-val">2</div><div class="admin-stat-lbl">Cities</div></div>
+        <div class="admin-stat"><div class="admin-stat-val">SFO</div><div class="admin-stat-lbl">Departs</div></div>
+      </div>
+    </div>
   </div>
+  <div class="admin-banner-rule"></div>
 </div>
 
 <div class="page-bg">
@@ -414,7 +442,7 @@ async function generateItinerary(){
       +'PART 1: 1-2 sentences why Lisbon and Algarve is perfect for this family.\n\n'
       +'PART 2: Write ALL of Days 1-'+lisbonDays+'. Every day required.\n'
       +'Day 1: Arrive Lisbon, easy first evening\nDay 2: Belem, LX Factory for Leah\nDay 3: Sintra, Pena Palace for Leah\nDay 4: Alfama, basketball for boys, Fado for parents\nDay 5: Cascais coastal\nDay '+lisbonDays+': Final Lisbon morning. End: Tomorrow we drive south to the Algarve!\n\n'
-      +'STRICT FORMAT per day:\nDay [N]: [title]\nMorning: [1 sentence, real places]\nAfternoon: [1 sentence, real places]\nEvening: [restaurant name + WARNING Nathanael allergen check]\nEvery 2 days add a plain text line (no markdown, no bold, no ###): PHOTO Leah Shot: [place + one reason viral]';
+      +'STRICT FORMAT per day:\nDay [N]: [title]\nMorning: [1 sentence, real places]\nAfternoon: [1 sentence, real places]\nEvening: [restaurant name + WARNING Nathanael allergen check]\nEvery 2 days add a plain text line: PHOTO Leah Shot: [place + one reason viral]\n\nCRITICAL: Output plain text only. No markdown. No **bold**. No *italics*. No bullet points. No ### headers. Place names are not bolded. Everything is normal readable sentences.';
 
     const p2='Expert Portugal travel planner. Tenbit family. Lisbon done. Now Algarve.\n\n'
       +'FAMILY: Tenbit (food wine), Abby (cafes wellness), Lucas (surf jet ski nightlife), Nathanael (basketball snorkeling FOOD ALLERGY WARNING every dinner), Leah (Instagram TikTok photo spots)\n'
@@ -424,7 +452,7 @@ async function generateItinerary(){
       +'Day '+algarveStart+': Drive Lisbon to Algarve, one scenic stop en route\n'
       +'Days '+(algarveStart+1)+'-'+algarveBeachEnd+': Beach mode — Benagil Cave, jet ski, snorkeling, Praia da Marinha, rooftop sunset, Lagos night market, beach sports, spa for Abby\n'
       +'Day '+totalDays+': Easy morning, Faro Airport, fly SFO. Brief warm send-off.\n\n'
-      +'STRICT FORMAT per day:\nDay [N]: [title]\nMorning: [1 sentence, real places]\nAfternoon: [1 sentence, real places]\nEvening: [restaurant name + WARNING Nathanael allergen check]\nEvery 2 days add a plain text line (no markdown, no bold, no ###): PHOTO Leah Shot: [place + one reason viral]\n\n'
+      +'STRICT FORMAT per day:\nDay [N]: [title]\nMorning: [1 sentence, real places]\nAfternoon: [1 sentence, real places]\nEvening: [restaurant name + WARNING Nathanael allergen check]\nEvery 2 days add a plain text line: PHOTO Leah Shot: [place + one reason viral]\n\nCRITICAL: Output plain text only. No markdown. No **bold**. No *italics*. No bullet points. No ### headers. Place names are not bolded. Everything is normal readable sentences.\n\n'
       +'After Day '+totalDays+': Portugal Tips — 6 quick tips: allergy navigation, safe teen areas, SIM card, tipping, transport, one surprise for the kids.';
 
     const[r1,r2]=await Promise.all([
