@@ -6,22 +6,18 @@
 <title>Nathanael's Portugal Wishes</title>
 <link rel="stylesheet" href="shared.css">
 <style>
-.chip:hover{border-color:#5A1878;color:#5A1878;background:rgba(0,0,0,0.03);}
-.chip.on{background:var(--navy);border-color:var(--navy);color:var(--gold2);}
-.nav-pill.me{background:rgba(0,0,0,0.15);border-color:#5A1878;color:#8A38A8;}
-.btn-submit{background:var(--navy);color:var(--gold2);border:none;padding:15px 48px;border-radius:2px;font-size:0.78rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;font-family:'Jost',sans-serif;cursor:pointer;transition:all 0.22s;box-shadow:0 4px 20px rgba(12,30,53,0.2);}
-.btn-submit:hover{background:var(--navy2);transform:translateY(-2px);}
-.btn-submit:disabled{opacity:0.35;cursor:not-allowed;transform:none;}
-.form-wrap{max-width:820px;margin:0 auto;padding:40px 32px 80px;}
-.cat-card{background:var(--white);border:1px solid var(--border);border-radius:4px;padding:30px;margin-bottom:14px;box-shadow:var(--shadow2);}
-.cat-rule{width:32px;height:1px;background:var(--gold);margin-bottom:16px;}
-.cat-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:var(--navy);margin-bottom:4px;}
-.cat-hint{font-size:0.75rem;color:var(--text3);margin-bottom:16px;}
-.submit-bar{background:var(--navy);border-radius:4px;padding:52px 48px;text-align:center;position:relative;overflow:hidden;margin-top:20px;}
-.submit-bar::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% -20%,rgba(184,137,42,0.13) 0%,transparent 70%);}
-.submit-bar h3{font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:#F5EEE4;margin-bottom:6px;position:relative;}
-.submit-bar p{color:rgba(245,238,228,0.5);font-size:0.88rem;margin-bottom:28px;position:relative;}
-@media(max-width:640px){.form-wrap{padding:28px 18px 60px;}.submit-bar{padding:36px 24px;}}
+.page-bg{background:#F2EDE6;padding-bottom:80px;}
+.form-wrap{max-width:820px;margin:0 auto;padding:48px 32px 0;}
+.cat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px;margin-bottom:14px;box-shadow:var(--shadow2);}
+.cat-header{margin-bottom:16px;}
+.cat-title{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:700;color:var(--navy);margin-bottom:3px;}
+.cat-hint{font-size:0.73rem;color:var(--text3);}
+.divider{height:1px;background:var(--border);margin:20px 0;}
+.submit-bar{background:var(--shell);border-radius:16px;padding:52px 40px;text-align:center;position:relative;overflow:hidden;margin-top:20px;}
+.submit-bar::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(201,150,58,0.1) 0%,transparent 65%);pointer-events:none;}
+.submit-bar h3{font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:#F5EDE0;margin-bottom:6px;position:relative;}
+.submit-bar p{color:rgba(245,237,224,0.45);font-size:0.88rem;margin-bottom:26px;position:relative;}
+@media(max-width:640px){.form-wrap{padding:32px 18px 0;}.submit-bar{padding:36px 22px;}}
 </style>
 </head>
 <body>
@@ -38,46 +34,33 @@
   </div>
 </nav>
 <div class="hero">
-  <div class="hero-texture"></div>
   <div class="hero-glow"></div>
+  <div class="hero-grid"></div>
   <div class="hero-eyebrow">✈ First Time Abroad — Summer 2026</div>
   <div class="hero-rule"></div>
   <h1>Nathanael's<br><em>Portugal Wishes</em></h1>
   <div class="hero-rule2"></div>
   <p class="hero-sub">Nate! Portugal has insane water sports, basketball courts, and beaches. Tell Dad exactly what you want. 🏀🌊</p>
 </div>
+<div class="page-bg">
 <div class="form-wrap">
-  <div class="allergy-banner" style="margin-bottom:20px;">
-    <div class="icon">⚠️</div>
-    <div><strong>Food Allergy Noted</strong><span>Dad has your allergy flagged — every restaurant recommendation will include an allergen reminder specifically for you.</span></div>
-  </div>
+  <div class="allergy-banner" style="margin-bottom:20px;"><div class="icon">⚠️</div><div><strong>Food Allergy Noted</strong><span>Dad has your allergy flagged — every restaurant recommendation includes an allergen reminder for you.</span></div></div>
+  <div class="cat-card"><div class="cat-header"><div class="cat-title">Sports</div><div class="cat-hint">Keep balling in Portugal</div></div><div class="chips"><span class="chip" onclick="tog(this)">Basketball courts</span><span class="chip" onclick="tog(this)">Outdoor pickup basketball</span><span class="chip" onclick="tog(this)">Beach football / soccer</span><span class="chip" onclick="tog(this)">Beach volleyball</span><span class="chip" onclick="tog(this)">Track & outdoor fitness</span><span class="chip" onclick="tog(this)">Running along the beach</span><span class="chip" onclick="tog(this)">Calisthenics parks</span></div></div>
+  <div class="cat-card"><div class="cat-header"><div class="cat-title">Water Activities</div><div class="cat-hint">What do you want to do in the ocean?</div></div><div class="chips"><span class="chip" onclick="tog(this)">Jet skiing</span><span class="chip" onclick="tog(this)">Snorkeling</span><span class="chip" onclick="tog(this)">Kayaking</span><span class="chip" onclick="tog(this)">Swimming in the ocean</span><span class="chip" onclick="tog(this)">Boat tour & sea caves</span><span class="chip" onclick="tog(this)">Cliff jumping</span><span class="chip" onclick="tog(this)">Surfing</span><span class="chip" onclick="tog(this)">Paddleboarding</span></div></div>
+  <div class="cat-card"><div class="cat-header"><div class="cat-title">Food (Allergy-Safe)</div><div class="cat-hint">What sounds good?</div></div><div class="chips"><span class="chip" onclick="tog(this)">Grilled chicken & meats</span><span class="chip" onclick="tog(this)">Street food & snacks</span><span class="chip" onclick="tog(this)">Beach bar food</span><span class="chip" onclick="tog(this)">Fresh fruit & smoothies</span><span class="chip" onclick="tog(this)">Big family dinners</span><span class="chip" onclick="tog(this)">Late night food spots</span></div></div>
+  <div class="cat-card"><div class="cat-header"><div class="cat-title">Experiences</div><div class="cat-hint">What would make this trip unforgettable?</div></div><div class="chips"><span class="chip" onclick="tog(this)">Explore the city at night</span><span class="chip" onclick="tog(this)">Beach days with the crew</span><span class="chip" onclick="tog(this)">Benagil Cave boat trip</span><span class="chip" onclick="tog(this)">Scenic coastal views</span><span class="chip" onclick="tog(this)">Night market & outdoor food</span></div></div>
   <div class="cat-card">
-    <div class="cat-rule"></div><div class="cat-title">Sports</div><div class="cat-hint">Keep balling in Portugal</div>
-    <div class="chips"><span class="chip" onclick="tog(this)">Basketball courts</span><span class="chip" onclick="tog(this)">Outdoor pickup basketball</span><span class="chip" onclick="tog(this)">Beach football / soccer</span><span class="chip" onclick="tog(this)">Beach volleyball</span><span class="chip" onclick="tog(this)">Track & outdoor fitness</span><span class="chip" onclick="tog(this)">Running along the beach</span><span class="chip" onclick="tog(this)">Calisthenics parks</span></div>
-  </div>
-  <div class="cat-card">
-    <div class="cat-rule"></div><div class="cat-title">Water Activities</div><div class="cat-hint">What do you want to do in the ocean?</div>
-    <div class="chips"><span class="chip" onclick="tog(this)">Jet skiing</span><span class="chip" onclick="tog(this)">Snorkeling</span><span class="chip" onclick="tog(this)">Kayaking</span><span class="chip" onclick="tog(this)">Swimming in the ocean</span><span class="chip" onclick="tog(this)">Boat tour & sea caves</span><span class="chip" onclick="tog(this)">Cliff jumping</span><span class="chip" onclick="tog(this)">Surfing</span><span class="chip" onclick="tog(this)">Paddleboarding</span></div>
-  </div>
-  <div class="cat-card">
-    <div class="cat-rule"></div><div class="cat-title">Food (Allergy-Safe)</div><div class="cat-hint">What sounds good to you?</div>
-    <div class="chips"><span class="chip" onclick="tog(this)">Grilled chicken & meats</span><span class="chip" onclick="tog(this)">Street food & snacks</span><span class="chip" onclick="tog(this)">Beach bar food</span><span class="chip" onclick="tog(this)">Fresh fruit & smoothies</span><span class="chip" onclick="tog(this)">Big family dinners</span><span class="chip" onclick="tog(this)">Late night food spots</span></div>
-  </div>
-  <div class="cat-card">
-    <div class="cat-rule"></div><div class="cat-title">Experiences</div><div class="cat-hint">What would make this trip unforgettable?</div>
-    <div class="chips"><span class="chip" onclick="tog(this)">Explore the city at night</span><span class="chip" onclick="tog(this)">Beach days with the crew</span><span class="chip" onclick="tog(this)">Benagil Cave boat trip</span><span class="chip" onclick="tog(this)">Scenic coastal views</span><span class="chip" onclick="tog(this)">Night market & outdoor food</span></div>
-  </div>
-  <div class="cat-card">
-    <label class="field-label">Anything else, Nathanael? Add your own wish</label>
+    <label class="field-label">Anything else, Nathanael?</label>
     <input type="text" id="extra-Nathanael" class="field-input" placeholder="Write anything you'd love to do in Portugal…" />
   </div>
-  <div class="submit-bar">
+  <div class="submit-bar" style="margin-bottom:48px;">
     <h3>Send Your Wishes to Dad</h3>
-    <p>Hit submit and Dad will make sure Portugal is built for you too. Your allergy is already flagged at every meal.</p>
-    <button class="btn-submit" id="submitBtn" onclick="submitWishes()">✦ Send My Wishes to Dad</button>
+    <p>Once you hit submit, Dad sees your picks and builds the itinerary around them.</p>
+    <button class="btn-primary" id="submitBtn" onclick="submitWishes()">✦ Send My Wishes to Dad</button>
   </div>
-  <div class="success-box" id="successBox" style="margin-top:20px;"><h3>Wishes sent, Nathanael!</h3><p>Dad can see everything you picked. Your allergy is flagged at every meal. Let's go! 🇵🇹</p></div>
-  <div class="error-box" id="errorBox" style="margin-top:16px;"></div>
+  <div class="success-box" id="successBox" style="margin-bottom:40px;"><h3>Wishes sent, Nathanael! 🎉</h3><p>Dad can now see everything you picked. Portugal 2026 is happening! 🇵🇹</p></div>
+  <div class="error-box" id="errorBox" style="margin-bottom:16px;"></div>
+</div>
 </div>
 <script>
 const SUPABASE_URL='https://hjfhhezebxlniuxstdzp.supabase.co';
@@ -90,9 +73,9 @@ async function submitWishes(){
   document.getElementById('submitBtn').disabled=true;document.getElementById('submitBtn').textContent='Sending…';document.getElementById('errorBox').style.display='none';
   try{
     const res=await fetch(SUPABASE_URL+'/rest/v1/wishes',{method:'POST',headers:{'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Prefer':'resolution=merge-duplicates'},body:JSON.stringify({person:'Nathanael',chips,extra,updated_at:new Date().toISOString()})});
-    if(!res.ok){const e=await res.text();throw new Error(e);}
+    if(!res.ok)throw new Error(await res.text());
     document.querySelector('.submit-bar').style.display='none';document.getElementById('successBox').style.display='block';window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
-  }catch(err){document.getElementById('errorBox').textContent='Something went wrong: '+err.message;document.getElementById('errorBox').style.display='block';document.getElementById('submitBtn').disabled=false;document.getElementById('submitBtn').textContent='✦ Send My Wishes to Dad';}
+  }catch(err){document.getElementById('errorBox').textContent='Error: '+err.message;document.getElementById('errorBox').style.display='block';document.getElementById('submitBtn').disabled=false;document.getElementById('submitBtn').textContent='✦ Send My Wishes to Dad';}
 }
 </script>
 </body>
