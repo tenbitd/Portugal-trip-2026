@@ -263,6 +263,9 @@ function getTags(txt){
 
 function fmtBody(raw){
   return raw
+    .replace(/^---+$/gm,'')
+    .replace(/^\*\*\*+$/gm,'')
+    .replace(/^-{2,}$/gm,'')
     .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
     .replace(/__(.*?)__/g,'<strong>$1</strong>')
     .replace(/\b(Morning):/gi,'<br><span class="time-lbl">Morning</span><br>')
@@ -273,6 +276,7 @@ function fmtBody(raw){
     .replace(/\b(Breakfast):/gi,'<br><span class="time-lbl">Breakfast</span><br>')
     .replace(/WARNING[^\n]*/g,'<span class="allergy-note">⚠ Confirm allergens for Nathanael</span>')
     .replace(/PHOTO Leah Shot[^\n]*/g,'<br><span style="background:var(--gold-pale);border:1px solid var(--border2);padding:4px 12px;border-radius:2px;font-size:0.8rem;color:var(--gold);display:inline-block;margin:6px 0;">📸 $&</span><br>')
+    .replace(/(<br>\s*){3,}/g,'<br><br>')
     .replace(/\n{2,}/g,'<br><br>')
     .replace(/\n/g,'<br>');
 }
