@@ -344,6 +344,10 @@ function filterDay(day,containerId){
   const target=day==='all'?bar.querySelector('.all-btn'):bar.querySelectorAll('.day-filter-btn:not(.all-btn)')[day-1];
   if(target)target.classList.add('active');
 
+  // Show/hide the AI rec box
+  const recBox=document.getElementById('aiRecBox');
+  if(recBox) recBox.style.display = day==='all' ? 'block' : 'none';
+
   // Show/hide day blocks
   document.querySelectorAll('.day-block').forEach(block=>{
     const blockDay=parseInt(block.getAttribute('data-day'));
@@ -351,16 +355,13 @@ function filterDay(day,containerId){
     const content=block.querySelector('.day-content');
     if(day==='all'){
       block.classList.remove('hidden');
-      // All collapsed in "all" mode
       if(header)header.classList.remove('open');
       if(content)content.classList.remove('open');
     } else {
       if(blockDay===day){
         block.classList.remove('hidden');
-        // Expand selected day
         if(header)header.classList.add('open');
         if(content)content.classList.add('open');
-        // Scroll to it
         setTimeout(()=>block.scrollIntoView({behavior:'smooth',block:'start'}),50);
       } else {
         block.classList.add('hidden');
