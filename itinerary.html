@@ -16,8 +16,18 @@
 .not-ready h3{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--navy);margin-bottom:10px;}
 .not-ready p{color:var(--text3);font-size:0.9rem;line-height:1.7;max-width:360px;margin:0 auto;}
 .family-pills{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:24px;}
-.fpill{background:var(--card2);border:1px solid var(--border2);color:var(--text2);padding:6px 16px;border-radius:100px;font-size:0.75rem;font-weight:500;}
-@media(max-width:640px){.itin-wrap{padding:28px 18px 0;}.itin-summary-bar{padding:12px 18px;gap:16px;}}
+.fpill{background:var(--card2);border:1px solid var(--border);color:var(--text2);padding:6px 16px;border-radius:6px;font-size:0.75rem;font-weight:500;}
+.tips-card{background:var(--card);border:1px solid var(--border);border-top:3px solid var(--gold2);border-radius:14px;padding:28px 32px;margin-top:12px;box-shadow:var(--shadow3);}
+.tips-header{display:flex;align-items:center;gap:16px;margin-bottom:24px;padding-bottom:18px;border-bottom:1px solid var(--border);}
+.tips-icon{font-size:2rem;flex-shrink:0;}
+.tips-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--navy);line-height:1.1;}
+.tips-sub{font-size:0.72rem;color:var(--text3);margin-top:3px;}
+.tips-list{display:flex;flex-direction:column;gap:14px;}
+.tip-item{display:flex;align-items:flex-start;gap:16px;}
+.tip-num{width:28px;height:28px;border-radius:6px;background:var(--navy);color:var(--gold3);font-size:0.75rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.tip-text{font-size:0.87rem;line-height:1.75;color:var(--text2);flex:1;}
+.tip-text strong{color:var(--navy);}
+@media(max-width:640px){.itin-wrap{padding:28px 18px 0;}.itin-summary-bar{padding:12px 18px;gap:16px;}.tips-card{padding:22px 18px;}}
 </style>
 </head>
 <body>
@@ -104,17 +114,50 @@ function fmtBody(raw){
     .replace(/\b(Dinner):/gi,'<br><span class="time-lbl">Dinner</span><br>')
     .replace(/\b(Breakfast):/gi,'<br><span class="time-lbl">Breakfast</span><br>')
     .replace(/WARNING[^\n]*/g,'<span class="allergy-note">⚠ Confirm allergens for Nathanael</span>')
-    .replace(/PHOTO Leah Shot[^\n]*/g,'<br><span style="background:var(--gold-pale);border:1px solid var(--border2);padding:4px 12px;border-radius:100px;font-size:0.78rem;color:var(--gold);display:inline-block;margin:6px 0;">📸 $&</span><br>')
+    .replace(/PHOTO Leah Shot[^\n]*/g,'<br><span style="background:var(--gold-pale);border:1px solid var(--border);padding:4px 12px;border-radius:4px;font-size:0.78rem;color:var(--gold2);display:inline-block;margin:6px 0;">📸 $&</span><br>')
     .replace(/(<br>\s*){3,}/g,'<br><br>').replace(/\n{2,}/g,'<br><br>').replace(/\n/g,'<br>');
 }
 
+function buildTipsCard(tipsText){
+  const lines=tipsText.split('\n').map(l=>l.trim()).filter(l=>l.length>0);
+  let num=1;
+  const items=lines.map(line=>{
+    let text=line
+      .replace(/^\*\*(.*?)\*\*:?/,'<strong>$1</strong>:')
+      .replace(/^(one|two|three|four|five|six|seven|eight|nine|ten)[.):]\s*/i,'')
+      .replace(/^\d+[.)]\s*/,'')
+      .replace(/^[-•*]\s*/,'');
+    return`<div class="tip-item"><div class="tip-num">${num++}</div><div class="tip-text">${text}</div></div>`;
+  }).join('');
+  return`<div class="tips-card">
+    <div class="tips-header">
+      <div class="tips-icon">🇵🇹</div>
+      <div>
+        <div class="tips-title">Portugal Travel Tips</div>
+        <div class="tips-sub">Essential advice for your family trip</div>
+      </div>
+    </div>
+    <div class="tips-list">${items}</div>
+  </div>`;
+}
+
 function buildCards(text){
-  let intro='',cards='';
+  let intro='',cards='',tipsCard='';
+
+  // Extract tips section after last day
+  const tipsSplit=/\n(?:Portugal Tips?|Travel Tips?)[^\n]*\n/i;
+  let tipsText='';
+  const tipMatch=tipsSplit.exec(text);
+  if(tipMatch){
+    tipsText=text.slice(tipMatch.index+tipMatch[0].length).trim();
+    text=text.slice(0,tipMatch.index).trim();
+  }
+
   const rx=/(?:^|\n)\s*(?:\*{0,2}#{0,3}\s*)?(?:Day|DAY)\s+(\d+)\s*[:\-\u2013\u2014*]?\s*\*{0,2}([^\n]*)/g;
   const matches=[...text.matchAll(rx)];
   if(matches.length===0){
     cards='<div class="day-block" data-day="1"><div class="day-content open"><div class="day-content-inner"><div class="day-text">'+text+'</div></div></div></div>';
-    return{intro,cards,total:1};
+    return{intro,cards,tipsCard,total:1};
   }
   intro=text.slice(0,matches[0].index).trim().replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
   const days=[];
@@ -141,7 +184,8 @@ function buildCards(text){
       <div class="day-content"><div class="day-content-inner"><div class="day-text">${fmtBody(d.body)}</div></div></div>
     </div>`;
   }
-  return{intro,cards,total:days.length};
+  if(tipsText) tipsCard=buildTipsCard(tipsText);
+  return{intro,cards,tipsCard,total:days.length};
 }
 
 function toggleDay(hdr){hdr.classList.toggle('open');hdr.nextElementSibling.classList.toggle('open');}
@@ -189,9 +233,9 @@ async function loadItinerary(){
     const bar=document.getElementById('itinSummaryBar');
     if(row.days)bar.innerHTML+='<div class="isum"><span class="l">Duration</span><span class="v">'+row.days+' days</span></div>';
     if(row.generated_at){const d=new Date(row.generated_at).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});bar.innerHTML+='<div class="isum"><span class="l">Generated</span><span class="v">'+d+'</span></div>';}
-    const{intro,cards,total}=buildCards(row.raw_text);
+    const{intro,cards,tipsCard,total}=buildCards(row.raw_text);
     if(intro){document.getElementById('aiRecText').innerHTML=intro;document.getElementById('aiRecBox').style.display='block';}
-    document.getElementById('itinOutput').innerHTML=cards||'<div class="day-text">'+row.raw_text+'</div>';
+    document.getElementById('itinOutput').innerHTML=(cards||'<div class="day-text">'+row.raw_text+'</div>')+(tipsCard||'');
     document.getElementById('mainContent').style.display='block';
     document.getElementById('dayFilterBar').style.display='flex';
     buildFilterBar(total,'dayFilterBar');
