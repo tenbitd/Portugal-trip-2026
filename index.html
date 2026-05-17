@@ -264,6 +264,7 @@ function getTags(txt){
 
 function fmtBody(raw){
   return raw
+    .replace(/^#{1,6}\s*/gm,'')
     .replace(/^---+$/gm,'').replace(/^\*\*\*+$/gm,'').replace(/^-{2,}$/gm,'')
     .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/__(.*?)__/g,'<strong>$1</strong>')
     .replace(/\b(Morning):/gi,'<br><span class="time-lbl">Morning</span><br>')
@@ -407,7 +408,7 @@ async function generateItinerary(){
       +'PART 1: 1-2 sentences why Lisbon and Algarve is perfect for this family.\n\n'
       +'PART 2: Write ALL of Days 1-'+lisbonDays+'. Every day required.\n'
       +'Day 1: Arrive Lisbon, easy first evening\nDay 2: Belem, LX Factory for Leah\nDay 3: Sintra, Pena Palace for Leah\nDay 4: Alfama, basketball for boys, Fado for parents\nDay 5: Cascais coastal\nDay '+lisbonDays+': Final Lisbon morning. End: Tomorrow we drive south to the Algarve!\n\n'
-      +'STRICT FORMAT per day:\nDay [N]: [title]\nMorning: [1 sentence, real places]\nAfternoon: [1 sentence, real places]\nEvening: [restaurant name + WARNING Nathanael allergen check]\nEvery 2 days: PHOTO Leah Shot: [place + one reason viral]';
+      +'STRICT FORMAT per day:\nDay [N]: [title]\nMorning: [1 sentence, real places]\nAfternoon: [1 sentence, real places]\nEvening: [restaurant name + WARNING Nathanael allergen check]\nEvery 2 days add a plain text line (no markdown, no bold, no ###): PHOTO Leah Shot: [place + one reason viral]';
 
     const p2='Expert Portugal travel planner. Tenbit family. Lisbon done. Now Algarve.\n\n'
       +'FAMILY: Tenbit (food wine), Abby (cafes wellness), Lucas (surf jet ski nightlife), Nathanael (basketball snorkeling FOOD ALLERGY WARNING every dinner), Leah (Instagram TikTok photo spots)\n'
@@ -417,7 +418,7 @@ async function generateItinerary(){
       +'Day '+algarveStart+': Drive Lisbon to Algarve, one scenic stop en route\n'
       +'Days '+(algarveStart+1)+'-'+algarveBeachEnd+': Beach mode — Benagil Cave, jet ski, snorkeling, Praia da Marinha, rooftop sunset, Lagos night market, beach sports, spa for Abby\n'
       +'Day '+totalDays+': Easy morning, Faro Airport, fly SFO. Brief warm send-off.\n\n'
-      +'STRICT FORMAT per day:\nDay [N]: [title]\nMorning: [1 sentence, real places]\nAfternoon: [1 sentence, real places]\nEvening: [restaurant name + WARNING Nathanael allergen check]\nEvery 2 days: PHOTO Leah Shot: [place + one reason viral]\n\n'
+      +'STRICT FORMAT per day:\nDay [N]: [title]\nMorning: [1 sentence, real places]\nAfternoon: [1 sentence, real places]\nEvening: [restaurant name + WARNING Nathanael allergen check]\nEvery 2 days add a plain text line (no markdown, no bold, no ###): PHOTO Leah Shot: [place + one reason viral]\n\n'
       +'After Day '+totalDays+': Portugal Tips — 6 quick tips: allergy navigation, safe teen areas, SIM card, tipping, transport, one surprise for the kids.';
 
     const[r1,r2]=await Promise.all([

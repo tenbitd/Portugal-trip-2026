@@ -94,6 +94,7 @@ function getTags(txt){
 
 function fmtBody(raw){
   return raw
+    .replace(/^#{1,6}\s*/gm,'')
     .replace(/^---+$/gm,'').replace(/^\*\*\*+$/gm,'').replace(/^-{2,}$/gm,'')
     .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/__(.*?)__/g,'<strong>$1</strong>')
     .replace(/\b(Morning):/gi,'<br><span class="time-lbl">Morning</span><br>')
