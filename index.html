@@ -515,6 +515,9 @@ function buildCards(text){
     return{intro,cards};
   }
   intro=text.slice(0,matches[0].index).trim().replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+
+  // Build day objects first, then sort by day number
+  const dayObjects = [];
   for(let i=0;i<matches.length;i++){
     const m=matches[i];
     const num=parseInt(m[1]);
@@ -522,6 +525,17 @@ function buildCards(text){
     const start=m.index+m[0].length;
     const end=i+1<matches.length?matches[i+1].index:text.length;
     const body=text.slice(start,end).trim();
+    // Skip duplicate day numbers — keep only first occurrence
+    if(!dayObjects.find(d=>d.num===num)){
+      dayObjects.push({num, title, body});
+    }
+  }
+
+  // Sort by day number ascending
+  dayObjects.sort((a,b)=>a.num-b.num);
+
+  for(const day of dayObjects){
+    const {num, title, body} = day;
     const tags=getTags(body+title);
     const open=num<=2;
     cards+=`
