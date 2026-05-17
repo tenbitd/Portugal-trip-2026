@@ -391,7 +391,7 @@ async function generateItinerary(){
     '<div class="isum"><span class="l">Allergy</span><span class="v">⚠ Nathanael at every meal</span></div>';
 
   const callAI=async(prompt)=>{
-    const res=await fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:3000,messages:[{role:'user',content:prompt}]})});
+    const res=await fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:3500,messages:[{role:'user',content:prompt}]})});
     const data=await res.json();
     if(!res.ok)throw new Error(data.error?.message||'API error');
     return data.content?.map(b=>b.text||'').join('\n')||'';
