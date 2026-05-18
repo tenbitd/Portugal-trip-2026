@@ -33,9 +33,9 @@ body{font-family:'Inter',sans-serif;background:var(--page-bg);color:var(--text);
 /* ─── NAV ─── */
 .nav{background:rgba(12,26,46,0.98);backdrop-filter:blur(24px);border-bottom:1px solid rgba(201,150,58,0.18);padding:0 48px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:300;height:64px;}
 .nav-logo{display:flex;align-items:center;gap:14px;}
-.nav-logo-mark{width:32px;height:32px;border:1px solid rgba(201,150,58,0.45);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.85rem;color:var(--gold3);}
-.nav-logo-text{font-family:'Cormorant Garamond',serif;color:var(--gold3);font-size:1.3rem;font-weight:600;letter-spacing:0.2px;}
-.nav-logo-sub{color:rgba(255,255,255,0.28);font-size:0.56rem;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;display:block;margin-top:-1px;}
+.nav-logo-mark{width:32px;height:32px;border:1px solid rgba(201,150,58,0.7);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.85rem;color:var(--gold3);}
+.nav-logo-text{font-family:'Cormorant Garamond',serif;color:#F5EDE0;font-size:1.35rem;font-weight:700;letter-spacing:0.2px;}
+.nav-logo-sub{color:rgba(255,255,255,0.6);font-size:0.56rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;display:block;margin-top:-1px;}
 .nav-pills{display:flex;gap:3px;}
 .nav-pill{padding:6px 14px;border-radius:4px;font-size:0.66rem;font-weight:500;letter-spacing:0.8px;text-transform:uppercase;text-decoration:none;border:1px solid rgba(255,255,255,0.07);color:rgba(255,255,255,0.32);transition:all 0.2s;font-family:'Inter',sans-serif;}
 .nav-pill:hover{border-color:rgba(201,150,58,0.35);color:var(--gold3);}
@@ -58,8 +58,8 @@ body{font-family:'Inter',sans-serif;background:var(--page-bg);color:var(--text);
 .content-bg{background:var(--page-bg);min-height:100px;}
 
 /* ─── SECTION HEADERS ─── */
-.section-eyebrow{font-size:0.58rem;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;color:var(--gold2);margin-bottom:6px;display:flex;align-items:center;gap:12px;}
-.section-eyebrow::after{content:'';flex:1;height:1px;background:var(--border);}
+.section-eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;color:var(--gold2);margin-bottom:6px;display:flex;align-items:center;gap:12px;opacity:1;}
+.section-eyebrow::after{content:'';flex:1;height:1px;background:var(--border2);}
 .section-title{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:700;color:var(--navy);margin-bottom:6px;line-height:1.1;}
 .section-hint{color:var(--text2);font-size:0.87rem;margin-bottom:24px;line-height:1.75;}
 
