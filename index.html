@@ -512,7 +512,7 @@ async function generateItinerary(){
       callAI(p2)
     ]);
     const fullText=r1+'\n'+r2;
-    const{intro,cards,total}=buildCards(fullText);
+    const{intro,cards,tipsCard,total}=buildCards(fullText);
 
     if(intro){document.getElementById('aiRecText').innerHTML=intro.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');document.getElementById('aiRecBox').style.display='block';}
     document.getElementById('loadingWrap').style.display='none';
