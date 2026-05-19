@@ -17,8 +17,8 @@
   --border2:#CFC4B5;
   --text:#111827;
   --text2:#374151;
-  --text3:#6B7280;
-  --text4:#9CA3AF;
+  --text3:#4B5563;
+  --text4:#6B7280;
   --navy:#0C1A2E;
   --navy2:#1A2E4A;
   --sage:#3D7A52;
@@ -37,7 +37,7 @@ body{font-family:'Inter',sans-serif;background:var(--page-bg);color:var(--text);
 .nav-logo-text{font-family:'Cormorant Garamond',serif;color:#FFFFFF;font-size:1.55rem;font-weight:700;letter-spacing:0.2px;}
 .nav-logo-sub{color:rgba(255,255,255,0.85);font-size:0.62rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;display:block;margin-top:-1px;}
 .nav-pills{display:flex;gap:3px;}
-.nav-pill{padding:6px 14px;border-radius:4px;font-size:0.66rem;font-weight:500;letter-spacing:0.8px;text-transform:uppercase;text-decoration:none;border:1px solid rgba(255,255,255,0.07);color:rgba(255,255,255,0.32);transition:all 0.2s;font-family:'Inter',sans-serif;}
+.nav-pill{padding:6px 14px;border-radius:4px;font-size:0.66rem;font-weight:500;letter-spacing:0.8px;text-transform:uppercase;text-decoration:none;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.6);transition:all 0.2s;font-family:'Inter',sans-serif;}
 .nav-pill:hover{border-color:rgba(201,150,58,0.35);color:var(--gold3);}
 .nav-pill.me{background:rgba(201,150,58,0.1);border-color:rgba(201,150,58,0.3);color:var(--gold3);}
 .nav-badge{font-size:0.6rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold3);border:1px solid rgba(201,150,58,0.28);padding:5px 14px;border-radius:4px;}
@@ -52,7 +52,7 @@ body{font-family:'Inter',sans-serif;background:var(--page-bg);color:var(--text);
 .hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.6rem,5vw,4.4rem);font-weight:700;color:var(--navy);line-height:1.04;margin-bottom:14px;position:relative;}
 .hero h1 em{color:var(--gold2);font-style:italic;font-weight:600;}
 .hero-rule2{width:28px;height:1px;background:var(--border2);margin:18px auto;position:relative;}
-.hero-sub{color:var(--text3);font-size:0.92rem;max-width:420px;margin:0 auto;line-height:1.9;position:relative;font-weight:400;}
+.hero-sub{color:var(--text2);font-size:0.92rem;max-width:420px;margin:0 auto;line-height:1.9;position:relative;font-weight:400;}
 
 /* ─── CONTENT AREA ─── */
 .content-bg{background:var(--page-bg);min-height:100px;}
@@ -88,10 +88,10 @@ body{font-family:'Inter',sans-serif;background:var(--page-bg);color:var(--text);
 .btn-ghost:hover{border-color:rgba(201,150,58,0.4);color:var(--gold3);}
 .btn-ghost-light{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1.5px solid var(--navy);color:var(--navy);padding:9px 20px;border-radius:8px;font-size:0.72rem;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;transition:all 0.2s;text-decoration:none;box-shadow:var(--shadow3);}
 .btn-ghost-light:hover{background:var(--navy);color:#F5EDE0;}
-.btn-action-pdf{position:relative;background:var(--navy);color:var(--gold3);border:none;padding:11px 24px;border-radius:8px;font-size:0.72rem;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:8px;}
-.btn-action-pdf:hover{background:var(--navy2);transform:translateY(-1px);}
-.btn-action-share{position:relative;background:transparent;border:1.5px solid var(--navy);color:var(--navy);padding:11px 24px;border-radius:8px;font-size:0.72rem;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:8px;text-decoration:none;}
-.btn-action-share:hover{background:var(--navy);color:var(--gold3);}
+.btn-action-pdf{position:relative;background:var(--navy);color:#F5EDE0;border:none;padding:12px 28px;border-radius:8px;font-size:0.76rem;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:8px;box-shadow:0 2px 12px rgba(12,26,46,0.2);letter-spacing:0.2px;}
+.btn-action-pdf:hover{background:var(--navy2);transform:translateY(-1px);box-shadow:0 4px 20px rgba(12,26,46,0.28);}
+.btn-action-share{position:relative;background:var(--gold2);border:none;color:#fff;padding:12px 28px;border-radius:8px;font-size:0.76rem;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:8px;text-decoration:none;box-shadow:0 2px 12px rgba(184,131,42,0.3);letter-spacing:0.2px;}
+.btn-action-share:hover{background:var(--gold);transform:translateY(-1px);box-shadow:0 4px 20px rgba(184,131,42,0.4);}
 
 /* ─── ALLERGY ─── */
 .allergy-note{display:inline-flex;align-items:center;gap:4px;background:rgba(184,74,40,0.06);border:1px solid rgba(184,74,40,0.18);color:var(--terracotta);padding:3px 10px;border-radius:6px;font-size:0.7rem;font-weight:600;}
