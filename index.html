@@ -491,9 +491,9 @@ async function generateItinerary(){
       +'WISHES:'+wishText+'\nBUDGET: '+hotelBudget+' | TRANSPORT: '+transport+'\n\n'
       +'HOTELS: Name 1 specific real Lisbon hotel matching budget. One sentence why it suits this family.\n'
       +'TRANSPORT: One brief transport tip per day based on: '+transport+'\n\n'
-      +'PART 1: 1-2 sentences why Lisbon and Algarve is perfect for this family.\n\n'
-      +'PART 2: Write ALL of Days 1-'+lisbonDays+'. Every day required.\n'
-      +'Day 1: Arrive Lisbon, easy first evening\nDay 2: Belem, LX Factory for Leah\nDay 3: Sintra, Pena Palace for Leah\nDay 4: Alfama, basketball for boys, Fado for parents\nDay 5: Cascais coastal\nDay '+lisbonDays+': Final Lisbon morning. End: Tomorrow we drive south to the Algarve!\n\n'
+      +'INTRO: Write 2-3 sentences (no heading, no label) explaining why this itinerary flies INTO Lisbon for culture and sightseeing first, then moves south to the Algarve for beaches and water, and why the family flies OUT from Faro instead of returning to Lisbon — keep it warm and personal, as if written for the family.\n\n'
+      +'Write ALL of Days 1-'+lisbonDays+'. Every day required.\n'
+      +'Day 1: Arrive Lisbon from SFO, easy first evening in the city\nDay 2: Belem, LX Factory for Leah\nDay 3: Sintra, Pena Palace for Leah\nDay 4: Alfama, basketball for boys, Fado for parents\nDay 5: Cascais coastal\nDay '+lisbonDays+': Final Lisbon morning. End: Tomorrow we drive south to the Algarve!\n\n'
       +'STRICT FORMAT per day:\nDay [N]: [title]\nMorning: [1 sentence, real places]\nAfternoon: [1 sentence, real places]\nEvening: [restaurant name + WARNING Nathanael allergen check]\nEvery 2 days add a plain text line: PHOTO Leah Shot: [place + one reason viral]\n\nCRITICAL: Output plain text only. No markdown. No **bold**. No *italics*. No bullet points. No ### headers. Place names are not bolded. Everything is normal readable sentences.';
 
     const p2='Expert Portugal travel planner. Tenbit family. Lisbon done. Now Algarve.\n\n'
@@ -503,7 +503,7 @@ async function generateItinerary(){
       +'Write ALL of Days '+algarveStart+'-'+totalDays+'. Every day required.\n'
       +'Day '+algarveStart+': Drive Lisbon to Algarve, one scenic stop en route\n'
       +'Days '+(algarveStart+1)+'-'+algarveBeachEnd+': Beach mode — Benagil Cave, jet ski, snorkeling, Praia da Marinha, rooftop sunset, Lagos night market, beach sports, spa for Abby\n'
-      +'Day '+totalDays+': Easy morning, Faro Airport, fly SFO. Brief warm send-off.\n\n'
+      +'Day '+totalDays+': Easy final morning in the Algarve, then depart from Faro Airport to SFO. Include 2-3 warm sentences explaining why flying out of Faro makes perfect sense — it saves the family a 3-hour drive back to Lisbon, keeps the relaxed beach mood right up until departure, and lets everyone end the trip the way it should end: sun, ocean, and no rushing.\n\n'
       +'STRICT FORMAT per day:\nDay [N]: [title]\nMorning: [1 sentence, real places]\nAfternoon: [1 sentence, real places]\nEvening: [restaurant name + WARNING Nathanael allergen check]\nEvery 2 days add a plain text line: PHOTO Leah Shot: [place + one reason viral]\n\nCRITICAL: Output plain text only. No markdown. No **bold**. No *italics*. No bullet points. No ### headers. Place names are not bolded. Everything is normal readable sentences.\n\n'
       +'After Day '+totalDays+': Portugal Tips — 6 quick tips: allergy navigation, safe teen areas, SIM card, tipping, transport, one surprise for the kids.';
 
