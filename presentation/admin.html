@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tenbit's Admin — Portugal 2026</title>
+<link rel="stylesheet" href="shared.v2.css">
+<style>
+.page-bg{background:var(--page-bg);padding-bottom:80px;}
+
+/* ADMIN BANNER */
+.admin-banner{position:relative;overflow:hidden;background:linear-gradient(135deg,#06101E 0%,#0C1A2E 40%,#112240 70%,#0A1628 100%);padding:52px 40px 44px;border-bottom:1px solid rgba(201,150,58,0.2);}
+.admin-banner-noise{position:absolute;inset:0;opacity:0.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px;}
+.admin-banner-glow{position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:700px;height:300px;background:radial-gradient(ellipse,rgba(201,150,58,0.12) 0%,transparent 65%);pointer-events:none;}
+.admin-banner-dots{position:absolute;inset:0;opacity:0.06;background-image:radial-gradient(circle,rgba(255,255,255,0.8) 1px,transparent 1px);background-size:28px 28px;}
+.admin-banner-inner{position:relative;max-width:1020px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;}
+.admin-banner-left{display:flex;flex-direction:column;gap:10px;}
+.admin-banner-eyebrow{display:flex;align-items:center;gap:10px;font-size:0.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:2px;}
+.admin-banner-eyebrow::before{content:'';width:24px;height:1px;background:var(--gold);opacity:0.6;}
+.admin-banner-title{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:700;color:#F5EDE0;line-height:1.05;letter-spacing:-0.5px;}
+.admin-banner-title em{color:var(--gold2);font-style:italic;font-weight:400;}
+.admin-banner-sub{color:rgba(245,237,224,0.72);font-size:0.82rem;line-height:1.6;max-width:380px;font-weight:400;}
+.admin-banner-right{display:flex;flex-direction:column;align-items:flex-end;gap:12px;}
+.admin-banner-badge{background:rgba(201,150,58,0.1);border:1px solid rgba(201,150,58,0.3);color:var(--gold2);padding:8px 20px;border-radius:6px;font-size:0.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;}
+.admin-banner-stats{display:flex;gap:1px;border:1px solid rgba(255,255,255,0.07);border-radius:10px;overflow:hidden;}
+.admin-stat{padding:12px 20px;background:rgba(255,255,255,0.04);display:flex;flex-direction:column;gap:3px;min-width:80px;}
+.admin-stat:not(:last-child){border-right:1px solid rgba(255,255,255,0.06);}
+.admin-stat-val{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:#F5EDE0;line-height:1;}
+.admin-stat-lbl{font-size:0.55rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.55);}
+.admin-banner-rule{position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,150,58,0.4),transparent);}
+
+.admin-wrap{max-width:1020px;margin:0 auto;padding:52px 32px 0;}
+.step-block{margin-bottom:48px;}
+
+/* STATUS CARDS */
+.status-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;}
+.status-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;box-shadow:var(--shadow3);}
+.status-card.submitted{border-left:3px solid var(--sage);}
+.sc-top{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.sc-avatar{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0;}
+.av-abby{background:linear-gradient(135deg,#3C0A28,#7A2258);}
+.av-lucas{background:linear-gradient(135deg,#0A2818,#1A5832);}
+.av-nate{background:linear-gradient(135deg,#28083A,#581878);}
+.av-leah{background:linear-gradient(135deg,#3A2808,#7A5818);}
+.sc-name{font-family:'Cormorant Garamond',serif;font-size:1.12rem;font-weight:700;color:var(--navy);}
+.sc-role{font-size:0.63rem;color:var(--text3);margin-top:1px;}
+.sc-status{display:flex;align-items:center;gap:7px;font-size:0.68rem;font-weight:600;}
+.sc-status.done{color:var(--sage);}
+.sc-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.sc-dot.done{background:var(--sage);}
+.sc-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px;}
+.sc-chip{background:var(--gold-pale);border:1px solid var(--border);color:var(--gold);padding:2px 8px;border-radius:4px;font-size:0.6rem;font-weight:600;}
+.sc-extra{margin-top:8px;font-size:0.7rem;color:var(--text3);font-style:italic;}
+.sc-time{font-size:0.6rem;color:var(--text4);margin-top:8px;}
+
+/* WHITE CARD */
+.white-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:32px;box-shadow:var(--shadow3);}
+.cat-label{font-size:0.56rem;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;color:var(--text3);display:block;margin:20px 0 10px;}
+.divider{height:1px;background:var(--border);margin:22px 0;}
+.settings-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px;}
+.sf{display:flex;flex-direction:column;gap:8px;}
+.sf label{font-size:0.56rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--text3);}
+
+/* GENERATE BAR */
+.generate-bar{background:var(--navy);border-radius:16px;padding:60px 48px;text-align:center;position:relative;overflow:hidden;}
+.generate-bar::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(201,150,58,0.12) 0%,transparent 65%);pointer-events:none;}
+.generate-bar h3{font-family:'Cormorant Garamond',serif;font-size:2rem;color:#F5EDE0;margin-bottom:10px;position:relative;font-weight:700;}
+.generate-bar p{color:rgba(245,237,224,0.42);font-size:0.88rem;margin-bottom:32px;position:relative;max-width:420px;margin-left:auto;margin-right:auto;line-height:1.75;}
+
+@media(max-width:640px){
+  .admin-banner{padding:36px 20px 32px;}
+  .admin-banner-title{font-size:1.8rem;}
+  .admin-banner-right{align-items:flex-start;}
+  .admin-banner-stats{width:100%;}
+  .admin-stat{flex:1;min-width:0;}
+  .admin-wrap{padding:36px 18px 0;}
+  .generate-bar{padding:40px 24px;}
+  .status-grid{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">
+    <div class="nav-logo-mark">✈</div>
+    <div><div class="nav-logo-text">Portugal 2026</div><span class="nav-logo-sub">Tenbit Family</span></div>
+  </div>
+  <div class="nav-badge">🔐 Admin</div>
+</nav>
+
+<div class="admin-banner">
+  <div class="admin-banner-noise"></div>
+  <div class="admin-banner-glow"></div>
+  <div class="admin-banner-dots"></div>
+  <div class="admin-banner-inner">
+    <div class="admin-banner-left">
+      <div class="admin-banner-eyebrow">Portugal 2026 · Trip Planner</div>
+      <div class="admin-banner-title"><em>Command</em> Center</div>
+      <div class="admin-banner-sub">Check family submissions, configure the trip, and generate the personalized day-by-day itinerary.</div>
+    </div>
+    <div class="admin-banner-right">
+      <div class="admin-banner-badge">🔐 Tenbit Only</div>
+      <div class="admin-banner-stats">
+        <div class="admin-stat"><div class="admin-stat-val">5</div><div class="admin-stat-lbl">Travelers</div></div>
+        <div class="admin-stat"><div class="admin-stat-val">2</div><div class="admin-stat-lbl">Cities</div></div>
+        <div class="admin-stat"><div class="admin-stat-val">SFO</div><div class="admin-stat-lbl">Departs</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="admin-banner-rule"></div>
+</div>
+
+<div class="page-bg">
+<div class="admin-wrap">
+
+  <!-- STEP 01: FAMILY STATUS -->
+  <div class="step-block">
+    <div class="section-eyebrow">Step 01</div>
+    <div class="section-title">Family Status</div>
+    <p class="section-hint">Each family member submits their own page. Green means done.</p>
+    <div class="status-grid">
+
+      <!-- Abby — Apr 8 -->
+      <div class="status-card submitted">
+        <div class="sc-top">
+          <div class="sc-avatar av-abby">👩</div>
+          <div><div class="sc-name">Abby</div><div class="sc-role">Mom · Seasoned Traveler</div></div>
+        </div>
+        <div class="sc-status done"><span class="sc-dot done"></span>Submitted ✓</div>
+        <div class="sc-chips">
+          <span class="sc-chip">Rooftop terrace dining</span>
+          <span class="sc-chip">Café culture</span>
+          <span class="sc-chip">Spa & wellness</span>
+          <span class="sc-chip">+5 more</span>
+        </div>
+        <div class="sc-extra">"Would love a cooking class"</div>
+        <div class="sc-time">Apr 8, 2:14 PM</div>
+      </div>
+
+      <!-- Lucas — Apr 11 -->
+      <div class="status-card submitted">
+        <div class="sc-top">
+          <div class="sc-avatar av-lucas">🧑</div>
+          <div><div class="sc-name">Lucas</div><div class="sc-role">19 · Son · First Abroad</div></div>
+        </div>
+        <div class="sc-status done"><span class="sc-dot done"></span>Submitted ✓</div>
+        <div class="sc-chips">
+          <span class="sc-chip">Jet skiing</span>
+          <span class="sc-chip">Surfing</span>
+          <span class="sc-chip">Nightlife</span>
+          <span class="sc-chip">+4 more</span>
+        </div>
+        <div class="sc-extra">"Need to find a basketball court"</div>
+        <div class="sc-time">Apr 11, 9:47 PM</div>
+      </div>
+
+      <!-- Nathanael — Apr 14 -->
+      <div class="status-card submitted">
+        <div class="sc-top">
+          <div class="sc-avatar av-nate">🧑</div>
+          <div><div class="sc-name">Nathanael</div><div class="sc-role">17 · Son · ⚠ Food Allergy</div></div>
+        </div>
+        <div class="sc-status done"><span class="sc-dot done"></span>Submitted ✓</div>
+        <div class="sc-chips">
+          <span class="sc-chip">Basketball courts</span>
+          <span class="sc-chip">Snorkeling</span>
+          <span class="sc-chip">Benagil Cave</span>
+          <span class="sc-chip">+6 more</span>
+        </div>
+        <div class="sc-extra">"Cliff jumping if we can find a safe spot"</div>
+        <div class="sc-time">Apr 14, 4:32 PM</div>
+      </div>
+
+      <!-- Leah — Apr 19 -->
+      <div class="status-card submitted">
+        <div class="sc-top">
+          <div class="sc-avatar av-leah">👧</div>
+          <div><div class="sc-name">Leah</div><div class="sc-role">15 · Daughter · Content Creator</div></div>
+        </div>
+        <div class="sc-status done"><span class="sc-dot done"></span>Submitted ✓</div>
+        <div class="sc-chips">
+          <span class="sc-chip">Sintra & Pena Palace</span>
+          <span class="sc-chip">Aesthetic cafés</span>
+          <span class="sc-chip">LX Factory</span>
+          <span class="sc-chip">+7 more</span>
+        </div>
+        <div class="sc-extra">"Ponta da Piedade is on my list!!"</div>
+        <div class="sc-time">Apr 19, 11:03 AM</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- STEP 02: TENBIT'S WISHES -->
+  <div class="step-block">
+    <div class="section-eyebrow">Step 02</div>
+    <div class="section-title">Your Wishes, Tenbit</div>
+    <p class="section-hint">Pick what you want — the AI weaves your preferences into the plan.</p>
+    <div class="white-card">
+      <span class="cat-label">Food & Dining</span>
+      <div class="chips">
+        <span class="chip on">Authentic Portuguese cuisine</span>
+        <span class="chip on">Fresh seafood restaurants</span>
+        <span class="chip on">Rooftop terrace dining</span>
+        <span class="chip on">Local wine tasting</span>
+        <span class="chip on">Grilled fish &amp; piri piri</span>
+        <span class="chip">Fine dining experience</span>
+        <span class="chip on">Hidden local gems</span>
+        <span class="chip">Craft beer spots</span>
+      </div>
+      <span class="cat-label">Culture &amp; City</span>
+      <div class="chips">
+        <span class="chip on">Vibrant local neighborhoods</span>
+        <span class="chip on">Fado music evening</span>
+        <span class="chip on">Scenic city viewpoints</span>
+        <span class="chip on">Sunset cocktails with a view</span>
+        <span class="chip">Exploring coastal villages</span>
+        <span class="chip on">Light city touring</span>
+        <span class="chip">Day trip to nearby towns</span>
+      </div>
+      <span class="cat-label">Beach &amp; Relax</span>
+      <div class="chips">
+        <span class="chip on">Beach days with the family</span>
+        <span class="chip">Resort pool &amp; lounge time</span>
+        <span class="chip on">Boat tour along the coast</span>
+        <span class="chip on">Relaxed mornings &amp; coffee</span>
+      </div>
+      <span class="cat-label">Shopping</span>
+      <div class="chips">
+        <span class="chip on">Artisan ceramics &amp; tiles</span>
+        <span class="chip">Quality leather goods</span>
+        <span class="chip on">Local markets &amp; antiques</span>
+      </div>
+      <div class="divider"></div>
+      <label class="field-label">Anything else you want on this trip?</label>
+      <input type="text" class="field-input" value="A Michelin dinner in the Algarve, and Fado for just me and Abby" readonly />
+    </div>
+  </div>
+
+  <!-- STEP 03: TRIP SETTINGS -->
+  <div class="step-block">
+    <div class="section-eyebrow">Step 03</div>
+    <div class="section-title">Trip Settings</div>
+    <p class="section-hint">The AI uses these for hotel and transport recommendations.</p>
+    <div class="white-card">
+      <div class="settings-grid">
+        <div class="sf"><label>Trip Length</label>
+          <select class="field-select"><option selected>13 days</option></select>
+        </div>
+        <div class="sf"><label>Pace Style</label>
+          <select class="field-select"><option selected>Balanced</option></select>
+        </div>
+        <div class="sf"><label>Accommodation Style</label>
+          <select class="field-select"><option selected>Resort with pool</option></select>
+        </div>
+        <div class="sf"><label>Hotel Price Range</label>
+          <select class="field-select"><option selected>Upscale ($300–$500/night)</option></select>
+        </div>
+        <div class="sf"><label>Getting Around</label>
+          <select class="field-select"><option selected>Rental car</option></select>
+        </div>
+        <div class="sf"><label>Touring</label>
+          <select class="field-select"><option selected>Minimal (2–3 tours)</option></select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 04: BUILD -->
+  <div class="step-block">
+    <div class="section-eyebrow">Step 04</div>
+    <div class="section-title">Build the Itinerary</div>
+    <p class="section-hint" style="margin-bottom:24px;">AI reads everyone's wishes and builds a complete day-by-day Portugal plan.</p>
+    <div class="generate-bar">
+      <h3>Ready to Build the Plan?</h3>
+      <p>The AI combines everyone's wishes and crafts a personalized itinerary with hotel and transport recommendations.</p>
+      <button class="btn-primary">✦ Build Our Portugal Itinerary</button>
+    </div>
+  </div>
+
+</div>
+</div>
+
+</body>
+</html>

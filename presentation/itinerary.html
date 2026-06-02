@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tenbit Family Portugal 2026 — Our Itinerary</title>
+<link rel="stylesheet" href="shared.v2.css">
+<style>
+.itin-summary-bar{background:var(--navy);border-bottom:1px solid rgba(201,150,58,0.15);padding:14px 32px;display:flex;gap:28px;flex-wrap:wrap;}
+.isum{display:flex;flex-direction:column;gap:2px;flex-shrink:0;}
+.isum .l{font-size:0.56rem;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,0.3);font-weight:600;}
+.isum .v{font-size:0.84rem;font-weight:600;color:rgba(255,255,255,0.8);}
+.page-bg{background:var(--page-bg);min-height:60vh;padding-bottom:80px;}
+.itin-wrap{max-width:860px;margin:0 auto;padding:40px 32px 0;}
+
+/* Family submission row */
+.family-submitted-bar{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 24px;margin-bottom:14px;box-shadow:var(--shadow3);}
+.fam-bar-label{font-size:0.56rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text4);margin-bottom:14px;}
+.fam-bar-row{display:flex;gap:12px;flex-wrap:wrap;}
+.fam-pill{display:flex;align-items:center;gap:10px;background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:10px 16px;flex:1;min-width:130px;}
+.fam-pill-avatar{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.av-tenbit{background:linear-gradient(135deg,#0A1E38,#1A3A5C);}
+.av-abby{background:linear-gradient(135deg,#3C0A28,#7A2258);}
+.av-lucas{background:linear-gradient(135deg,#0A2818,#1A5832);}
+.av-nate{background:linear-gradient(135deg,#28083A,#581878);}
+.av-leah{background:linear-gradient(135deg,#3A2808,#7A5818);}
+.fam-pill-info{}
+.fam-pill-name{font-size:0.78rem;font-weight:700;color:var(--navy);line-height:1.2;}
+.fam-pill-date{font-size:0.62rem;color:var(--sage);font-weight:600;margin-top:1px;}
+.fam-pill-date::before{content:'✓ ';}
+
+.tips-card{background:var(--card);border:1px solid var(--border);border-top:3px solid var(--gold);border-radius:14px;padding:28px 32px;margin-top:12px;box-shadow:var(--shadow3);}
+.tips-header{display:flex;align-items:center;gap:16px;margin-bottom:24px;padding-bottom:18px;border-bottom:1px solid var(--border);}
+.tips-icon{font-size:2rem;flex-shrink:0;}
+.tips-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--navy);line-height:1.1;}
+.tips-sub{font-size:0.72rem;color:var(--text3);margin-top:3px;}
+.tips-list{display:flex;flex-direction:column;gap:14px;}
+.tip-item{display:flex;align-items:flex-start;gap:16px;}
+.tip-num{width:28px;height:28px;border-radius:6px;background:var(--navy);color:var(--gold2);font-size:0.75rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.tip-text{font-size:0.87rem;line-height:1.75;color:var(--text2);flex:1;}
+.tip-text strong{color:var(--navy);}
+
+.action-btns{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;}
+@media(max-width:640px){.itin-wrap{padding:28px 18px 0;}.itin-summary-bar{padding:12px 18px;gap:16px;}.tips-card{padding:22px 18px;}.fam-bar-row{gap:8px;}.fam-pill{min-width:calc(50% - 4px);flex:none;}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-logo">
+    <div class="nav-logo-mark">✈</div>
+    <div><div class="nav-logo-text">Portugal 2026</div><span class="nav-logo-sub">Tenbit Family</span></div>
+  </div>
+  <div class="nav-badge">🇵🇹 Our Itinerary</div>
+</nav>
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-eyebrow">Built by AI · Planned by Dad</div>
+  <div class="hero-rule"></div>
+  <h1>The Tenbit Family<br><em>Portugal Plan 2026</em></h1>
+  <div class="hero-rule2"></div>
+  <p class="hero-sub">Here it is, family — your personalized Portugal trip, built around what each of you picked. 🇵🇹</p>
+</div>
+
+<div class="itin-summary-bar">
+  <div class="isum"><span class="l">Route</span><span class="v">🇵🇹 SFO → Lisbon → Algarve → SFO</span></div>
+  <div class="isum"><span class="l">Travelers</span><span class="v">Tenbit · Abby · Lucas · Nathanael · Leah</span></div>
+  <div class="isum"><span class="l">Duration</span><span class="v">13 days</span></div>
+  <div class="isum"><span class="l">Allergy</span><span class="v">⚠ Nathanael — flagged at every meal</span></div>
+  <div class="isum"><span class="l">Generated</span><span class="v">April 24, 2026</span></div>
+</div>
+
+<div class="day-filter-bar" id="dayFilterBar"></div>
+
+<div class="page-bg">
+<div class="itin-wrap">
+
+  <!-- Family submitted bar -->
+  <div class="family-submitted-bar">
+    <div class="fam-bar-label">Family Submissions</div>
+    <div class="fam-bar-row">
+      <div class="fam-pill"><div class="fam-pill-avatar av-abby">👩</div><div class="fam-pill-info"><div class="fam-pill-name">Abby</div><div class="fam-pill-date">Apr 8</div></div></div>
+      <div class="fam-pill"><div class="fam-pill-avatar av-lucas">🧑</div><div class="fam-pill-info"><div class="fam-pill-name">Lucas</div><div class="fam-pill-date">Apr 11</div></div></div>
+      <div class="fam-pill"><div class="fam-pill-avatar av-nate">🧑</div><div class="fam-pill-info"><div class="fam-pill-name">Nathanael</div><div class="fam-pill-date">Apr 14</div></div></div>
+      <div class="fam-pill"><div class="fam-pill-avatar av-leah">👧</div><div class="fam-pill-info"><div class="fam-pill-name">Leah</div><div class="fam-pill-date">Apr 19</div></div></div>
+      <div class="fam-pill"><div class="fam-pill-avatar av-tenbit">👨</div><div class="fam-pill-info"><div class="fam-pill-name">Tenbit</div><div class="fam-pill-date">Apr 21</div></div></div>
+    </div>
+  </div>
+
+  <!-- Intro rec box -->
+  <div class="ai-rec-box" style="margin-bottom:14px;">
+    <div class="rec-label">✦ Why Dad Picked Portugal for Us</div>
+    <p>Portugal is the perfect family adventure — Lisbon gives us the culture and history to kick things off right, with world-class food, stunning viewpoints, and neighborhoods that Leah will absolutely love for content. Then we drive south to the Algarve where the boys get their ocean time, the beaches are some of the best in Europe, and the pace slows down just enough for everyone to exhale. Flying out of Faro instead of backtracking to Lisbon keeps that relaxed beach energy all the way to the airport — no rushing, no long drives, just a clean exit from a great trip.</p>
+  </div>
+
+  <div class="action-btns">
+    <button class="btn-action-pdf">⬇ Download as PDF</button>
+    <a class="btn-action-share" href="#">↗ Share with Family</a>
+  </div>
+
+  <div id="itinOutput"></div>
+
+</div>
+</div>
+
+<script>
+const DAYS = [
+  {
+    num:1, title:"Arrive in Lisbon",
+    body:`Morning: Overnight flight from SFO lands at Lisbon Humberto Delgado Airport — clear customs, collect bags, and meet your rental car from Europcar at the terminal.
+Afternoon: Check into Bairro Alto Hotel, a beautifully restored 18th-century palace right in the heart of Lisbon's most vibrant neighborhood, with a rooftop terrace and a pool the kids will claim immediately.
+Evening: Easy first night — walk to Tasca do Chico in Bairro Alto for grilled fish, piri piri chicken, and a table of pastéis de nata. <span class="allergy-note">⚠ Confirm allergens for Nathanael</span>`
+  },
+  {
+    num:2, title:"Belém & LX Factory",
+    body:`Morning: Drive the riverside to Belém — visit the Torre de Belém and the Mosteiro dos Jerónimos, then stop at Pastéis de Belém, the original custard tart bakery open since 1837.
+<br><span style="background:var(--gold-pale);border:1px solid var(--border);padding:4px 12px;border-radius:4px;font-size:0.78rem;color:var(--gold);display:inline-block;margin:6px 0;">📸 PHOTO Leah Shot: Torre de Belém at golden hour — the Tagus River reflection makes every shot look editorial.</span>
+Afternoon: Head to LX Factory, a creative market inside a repurposed 19th-century industrial complex — vintage shops, independent brands, street food, and incredible murals throughout.
+Evening: Dinner at Taberna da Rua das Flores for classic Portuguese petiscos and natural wine. <span class="allergy-note">⚠ Confirm allergens for Nathanael</span>`
+  },
+  {
+    num:3, title:"Sintra & Pena Palace",
+    body:`Morning: Early start — drive 40 minutes to Sintra and climb through the forest to Palácio Nacional da Pena, the fairytale palace perched above the clouds that looks like it was designed for Leah's Instagram.
+<br><span style="background:var(--gold-pale);border:1px solid var(--border);padding:4px 12px;border-radius:4px;font-size:0.78rem;color:var(--gold);display:inline-block;margin:6px 0;">📸 PHOTO Leah Shot: Pena Palace from the lower terrace — the yellow and red towers against the Sintra hills are unlike anywhere else in Europe.</span>
+Afternoon: Explore the Moorish Castle and the village below for artisan sweets and souvenirs, then head back to Lisbon for a quiet afternoon by the hotel pool.
+Evening: Sunset cocktails at Park Bar, Lisbon's rooftop hidden above a car park in Bairro Alto — one of the best views in the city. Dinner at nearby Zé da Mouraria for fresh seafood. <span class="allergy-note">⚠ Confirm allergens for Nathanael</span>`
+  },
+  {
+    num:4, title:"Alfama, Basketball & Fado",
+    body:`Morning: Explore Alfama on foot — the oldest neighborhood in Lisbon, with narrow winding streets, street art, and the São Jorge Castle overlooking the city. Stop at Miradouro da Graça for the best city panorama.
+Afternoon: Lucas and Nathanael head to Pavilhão Desportivo da Mouraria for outdoor basketball — pickup games run all afternoon. Abby and Leah explore independent boutiques and ceramic shops in Intendente.
+Evening: Parents-only Fado night at Clube de Fado in Alfama — authentic music in a stone-walled wine cellar. Boys get dinner and explore the Bairro Alto streets. <span class="allergy-note">⚠ Confirm allergens for Nathanael</span>`
+  },
+  {
+    num:5, title:"Cascais Coastal Day",
+    body:`Morning: Drive 30 minutes along the Marginal coastal road to Cascais — a charming fishing village turned cosmopolitan resort town. Walk the harbor promenade and visit Praia da Rainha beach.
+Afternoon: Continue to Cabo da Roca, the westernmost point of continental Europe, then back to Cascais for the afternoon. Lucas and Nate find a beach volleyball net at Praia de Cascais.
+<br><span style="background:var(--gold-pale);border:1px solid var(--border);padding:4px 12px;border-radius:4px;font-size:0.78rem;color:var(--gold);display:inline-block;margin:6px 0;">📸 PHOTO Leah Shot: Cabo da Roca cliffs at the edge of Europe — the "End of the World" sign is iconic content.</span>
+Evening: Dinner at A Tasca in Cascais, right on the harbor — grilled seabass and local wine with ocean views. <span class="allergy-note">⚠ Confirm allergens for Nathanael</span>`
+  },
+  {
+    num:6, title:"Final Lisbon Morning — Heading South Tomorrow",
+    body:`Morning: Slow morning — Abby finds a table at Copenhagen Coffee Lab in Príncipe Real while the family browses the Feira da Ladra flea market for ceramics, azulejo tiles, and vintage finds.
+Afternoon: Last Lisbon lunch at Mercado da Ribeira — Time Out Market, where every stall represents a top Lisbon restaurant. Everyone picks their own. <span class="allergy-note">⚠ Confirm allergens for Nathanael</span>
+Evening: Pack up, early dinner at the hotel rooftop. Tomorrow we drive south to the Algarve — the boys have been waiting for this since day one.`
+  },
+  {
+    num:7, title:"Drive South to the Algarve",
+    body:`Morning: Check out of Bairro Alto Hotel, load the rental car, and hit the A2 motorway south — a 3-hour scenic drive with rolling cork oak forests and golden plains.
+Afternoon: Midway stop at Évora — a UNESCO World Heritage walled city with a Roman temple right in the center. Walk the old town for an hour, grab lunch at Taberna Típica Quarta-Feira, then continue south. <span class="allergy-note">⚠ Confirm allergens for Nathanael</span>
+Evening: Arrive in Lagos and check into Vila Vita Parc Resort & Spa in Porches — a clifftop five-star resort with direct ocean access, multiple pools, and the kind of view that makes everyone stop talking for a moment. Dinner at the resort's Casa Velha restaurant. <span class="allergy-note">⚠ Confirm allergens for Nathanael</span>`
+  },
+  {
+    num:8, title:"Benagil Cave & Algarve Ocean Day",
+    body:`Morning: Early boat tour from Carvoeiro to the famous Benagil Sea Cave — the most photographed cave in Portugal, with a natural skylight dome and a hidden beach inside. Book tickets the night before.
+<br><span style="background:var(--gold-pale);border:1px solid var(--border);padding:4px 12px;border-radius:4px;font-size:0.78rem;color:var(--gold);display:inline-block;margin:6px 0;">📸 PHOTO Leah Shot: Inside Benagil Cave from the beach — the light through the dome at 10am is otherworldly and guaranteed viral.</span>
+Afternoon: Back to Praia de Carvoeiro for jet ski rentals — Lucas and Nate get 45 minutes each. Snorkeling around the rock formations at Praia da Marinha.
+Evening: Rooftop dinner at Bon Bon Restaurant in Carvoeiro for fresh grilled catch of the day. <span class="allergy-note">⚠ Confirm allergens for Nathanael</span>`
+  },
+  {
+    num:9, title:"Praia da Marinha & Beach Sports",
+    body:`Morning: Full beach day at Praia da Marinha — consistently ranked one of the most beautiful beaches in the world, with golden limestone cliffs and crystal-clear water. Get there early for a good spot.
+Afternoon: Beach volleyball and football on the sand. Nate and Lucas challenge any locals willing to play. Abby finds a quiet cove for a swim and reads on a towel. Leah is everywhere with her camera.
+Evening: Lagos night market along the waterfront — outdoor food stalls, live music, local crafts, and the boys finally get their late-night food experience. <span class="allergy-note">⚠ Confirm allergens for Nathanael</span>`
+  },
+  {
+    num:10, title:"Lagos Old Town & Cliff Walks",
+    body:`Morning: Drive to Lagos — explore the beautiful walled old town, the Mercado de Lagos for fresh produce and local goods, and the Igreja de Santo António with its jaw-dropping gilded interior.
+<br><span style="background:var(--gold-pale);border:1px solid var(--border);padding:4px 12px;border-radius:4px;font-size:0.78rem;color:var(--gold);display:inline-block;margin:6px 0;">📸 Leah Shot: Ponta da Piedade sea arch from the clifftop — the turquoise water color against the orange rock is the most-pinned image from the entire Algarve.</span>
+Afternoon: Ponta da Piedade — walk the cliffside trail above the sea arches, then kayak tour through the sea caves and grottos below.
+Evening: Sunset cocktails at the rooftop bar at The Vine Hotel Lagos, then dinner at O Camilo overlooking the sea. <span class="allergy-note">⚠ Confirm allergens for Nathanael</span>`
+  },
+  {
+    num:11, title:"Spa Day & Water Sports",
+    body:`Morning: Abby books a morning at the Vila Vita spa — 90-minute signature treatment while the boys head to Slide & Splash waterpark in Lagoa for the morning.
+Afternoon: Paddleboarding and kayaking at Praia do Alemão near the resort. Leah and Abby take a cooking class at Algarve Cooking Academy — learning to make cataplana and pastel de nata from scratch.
+Evening: Family dinner at Restaurante Sueste in Ferragudo — a beautiful riverside restaurant overlooking the old fishing village. One of the best seafood meals in the Algarve. <span class="allergy-note">⚠ Confirm allergens for Nathanael</span>`
+  },
+  {
+    num:12, title:"Last Full Beach Day",
+    body:`Morning: Back to Praia da Marinha one more time — this one is non-negotiable. Nobody wants to leave. Breakfast from the beach kiosk, morning swim, and Tenbit finally sits still for two hours.
+Afternoon: Lazy afternoon at the resort pool. Abby picks up final ceramics and azulejo tile souvenirs from a boutique in Porches village. Lucas finds a pickup basketball court near Lagoa — his last game on European soil.
+Evening: Final family dinner at Henrique Leis in Almancil — one of the Algarve's most celebrated restaurants, Michelin-starred, and worth every minute of the drive. <span class="allergy-note">⚠ Confirm allergens for Nathanael</span> Toast the trip. Leah shows everyone her content from the two weeks.`
+  },
+  {
+    num:13, title:"Faro & Fly Home",
+    body:`Morning: Easy last morning — late checkout at Vila Vita, final coffee on the terrace, and one last look at the Atlantic. Load the car for the last time.
+Afternoon: 45-minute drive to Faro Airport — drop the rental car, check in for the SFO flight. Flying out of Faro makes perfect sense: it saves a 3-hour drive back to Lisbon, keeps the relaxed Algarve energy right up until departure, and lets everyone end the trip the way it should end — sun, ocean, and zero rushing. Browse the small airport shops for last-minute pastéis and port wine.
+Evening: Depart Faro International Airport for San Francisco. Portugal 2026 — done. Already planning Portugal 2028. 🇵🇹`
+  }
+];
+
+const TIPS = [
+  { title:"Allergy navigation", text:"<strong>Nathanael's allergy</strong>: always carry a translated Portuguese allergy card — restaurants will take it seriously. Say <em>\"Tenho alergia a...\"</em> (I am allergic to...). Most Algarve resort restaurants are accustomed to allergy requests." },
+  { title:"Safe teen areas", text:"<strong>Bairro Alto and Alfama</strong> in Lisbon and the <strong>Lagos old town</strong> in the Algarve are completely safe for the kids to wander in the evenings, as long as they stay in the main pedestrian areas and have their phones charged." },
+  { title:"SIM card", text:"Pick up a <strong>NOS or Vodafone Portugal SIM</strong> at the airport on arrival — €15 gets everyone 30 days of unlimited data. Much cheaper and more reliable than international plans from the US carriers." },
+  { title:"Tipping", text:"Tipping is appreciated but not expected in Portugal. <strong>5–10% is generous</strong> and will be remembered warmly. Round up the bill at casual spots; leave €5–10 at nicer restaurants. Never tip at coffee bars." },
+  { title:"Transport", text:"The <strong>rental car is essential</strong> for this itinerary — Sintra, Cascais, the drive south, and getting around the Algarve all require it. Park outside the historic centers and walk in. Bolt and Uber work well inside Lisbon." },
+  { title:"Surprise for the kids", text:"<strong>Hidden gem</strong>: at Praia da Marinha, walk the cliff path east for 10 minutes to a hidden cove called Praia do Carvalho — almost no tourists, a sea arch, and a freshwater spring. The boys will love cliff jumping from the lower rocks (safely)." }
+];
+
+function getTags(txt) {
+  const t = [];
+  if(/lisbon|alfama|belem|sintra|cascais|lx factory/i.test(txt)) t.push('<span class="day-tag tag-city">Lisbon</span>');
+  if(/faro|algarve|lagos|albufeira|portim|marinha|benagil|carvoeiro|évora/i.test(txt)) t.push('<span class="day-tag tag-beach">Algarve</span>');
+  if(/beach|surf|ocean|swim|snorkel|jet ski|kayak|cave|cliff|paddleboard/i.test(txt)) t.push('<span class="day-tag tag-beach">Beach</span>');
+  if(/basketball|volleyball|sport|soccer|waterpark/i.test(txt)) t.push('<span class="day-tag tag-sport">Sports</span>');
+  if(/restaurant|food|dinner|lunch|cafe|pastel|seafood|market|tart/i.test(txt)) t.push('<span class="day-tag tag-food">Food</span>');
+  if(/leah shot|photo|tiktok|instagram/i.test(txt)) t.push('<span class="day-tag tag-photo">📸 Photo</span>');
+  if(/fly|depart|arrive|airport|drive south|check.in|check.out/i.test(txt)) t.push('<span class="day-tag tag-travel">Travel</span>');
+  return t.slice(0,3).join('');
+}
+
+function fmtBody(raw) {
+  return raw
+    .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\b(Morning):/gi,'<br><span class="time-lbl">Morning</span><br>')
+    .replace(/\b(Afternoon):/gi,'<br><span class="time-lbl">Afternoon</span><br>')
+    .replace(/\b(Evening|Night):/gi,'<br><span class="time-lbl">Evening</span><br>')
+    .replace(/(<br>\s*){3,}/g,'<br><br>');
+}
+
+function toggleDay(hdr) {
+  hdr.classList.toggle('open');
+  hdr.nextElementSibling.classList.toggle('open');
+}
+
+function filterDay(day, containerId) {
+  const bar = document.getElementById(containerId);
+  bar.querySelectorAll('.day-filter-btn').forEach(b => b.classList.remove('active'));
+  const target = day === 'all'
+    ? bar.querySelector('.all-btn')
+    : bar.querySelectorAll('.day-filter-btn:not(.all-btn)')[day - 1];
+  if (target) target.classList.add('active');
+  document.querySelectorAll('.day-block').forEach(block => {
+    const blockDay = parseInt(block.getAttribute('data-day'));
+    const header = block.querySelector('.day-header');
+    const content = block.querySelector('.day-content');
+    if (day === 'all') {
+      block.classList.remove('hidden');
+      if (header) header.classList.remove('open');
+      if (content) content.classList.remove('open');
+    } else {
+      if (blockDay === day) {
+        block.classList.remove('hidden');
+        if (header) header.classList.add('open');
+        if (content) content.classList.add('open');
+        setTimeout(() => block.scrollIntoView({behavior:'smooth',block:'start'}), 50);
+      } else {
+        block.classList.add('hidden');
+      }
+    }
+  });
+}
+
+function buildFilterBar(total, containerId) {
+  const bar = document.getElementById(containerId);
+  let html = '<button class="day-filter-btn all-btn active" onclick="filterDay(\'all\',\''+containerId+'\')">All Days</button>';
+  for (let i = 1; i <= total; i++) {
+    html += '<button class="day-filter-btn" onclick="filterDay('+i+',\''+containerId+'\')">Day '+i+'</button>';
+  }
+  bar.innerHTML = html;
+}
+
+// Build day cards
+let cardsHtml = '';
+for (const d of DAYS) {
+  const tags = getTags(d.body + d.title);
+  cardsHtml += `<div class="day-block" data-day="${d.num}">
+    <div class="day-header" onclick="toggleDay(this)">
+      <div class="day-num">${d.num}</div>
+      <div class="day-meta">
+        <div class="day-title">${d.num===1?'✈ ':''}Day ${d.num} — ${d.title}</div>
+        <div class="day-tags">${tags}</div>
+      </div>
+      <span class="day-chevron">▾</span>
+    </div>
+    <div class="day-content"><div class="day-content-inner"><div class="day-text">${fmtBody(d.body)}</div></div></div>
+  </div>`;
+}
+
+// Build tips card
+let tipsHtml = `<div class="tips-card">
+  <div class="tips-header">
+    <div class="tips-icon">🇵🇹</div>
+    <div>
+      <div class="tips-title">Portugal Travel Tips</div>
+      <div class="tips-sub">Essential advice for your family trip</div>
+    </div>
+  </div>
+  <div class="tips-list">`;
+TIPS.forEach((tip, i) => {
+  tipsHtml += `<div class="tip-item"><div class="tip-num">${i+1}</div><div class="tip-text">${tip.text}</div></div>`;
+});
+tipsHtml += `</div></div>`;
+
+document.getElementById('itinOutput').innerHTML = cardsHtml + tipsHtml;
+buildFilterBar(13, 'dayFilterBar');
+</script>
+</body>
+</html>
